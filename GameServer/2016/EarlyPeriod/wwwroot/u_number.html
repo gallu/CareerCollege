@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+<title>unique number</title>
+</head>
+
+<body>
+<form>
+固有番号:<input name="u_number" id="u_number" size="40" ><br>
+<button type="button" id="u_get">固有番号取得</button>
+</form>
+<hr>
+<form>
+名前:<input name="name" id="name"><br>
+固有番号:<input name="u_number2" id="u_number2" size="40" ><br>
+<button type="button" id="register">登録！！</button>
+</form>
+<hr>
+<form>
+固有番号:<input name="u_number3" id="u_number3" size="40" ><br>
+<button type="button" id="is_auth">認証通信</button>
+</form>
+
+<script src="//dev2.m-fr.net/gallu/js/jquery-2.2.4.min.js"></script>
+<script>
+function u_get_main() {
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "GET",
+     url: "./u_get_1.php",
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       //alert( "response string: " + msg.uuid );
+       $("#u_number").val(msg.uuid);
+       alert('IDを取得しました！');
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+// 登録
+function register_main() {
+  //alert('test2');
+  //alert($("#id").val());
+  //alert($("#pw").val());
+
+  // パラメタの組み立て
+  var request_data = {};
+  request_data.name = $("#name").val();
+  request_data.uuid   = $("#u_number2").val();
+
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "POST",
+     url: "./user_register_2.php",
+     data: request_data,
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       //alert( "response string: " + msg.msg );
+       if ('ok' === msg.status) {
+         alert('登録しました！');
+       } else {
+         alert('登録でエラーになりました： ' + msg.msg);
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+// 認証状態確認
+function is_auth_main() {
+  // uuidを先に把握
+  var uuid = $("#u_number3").val();
+
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "GET",
+     url: "./is_auth_2.php",
+     headers: {
+      'X-Auth': uuid
+     },
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       if ('ok' === msg.status) {
+         alert('認証状態です');
+       } else {
+         alert('認証状態ではありません ');
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+
+
+$(document).ready(function(){
+  // alert('test'); // 一番初めはこの行だけ生かして「jQueryが動く」事を確認する!!
+
+  // イベントを登録
+  $('#u_get').on('click', u_get_main);
+  $('#register').on('click', register_main);
+  $('#is_auth').on('click', is_auth_main);
+
+
+});
+</script>
+</body>
+</html>
+

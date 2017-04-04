@@ -1,0 +1,30 @@
+create table `ドラクエ_1_PC` (
+	名前	varchar(4),
+	レベル	tinyint unsigned,
+	HP	int unsigned,
+	MP	int unsigned,
+	gold	int unsigned,
+	経験値	int unsigned,
+	ちから	tinyint unsigned,
+	すばやさ	tinyint unsigned,
+	最大HP	int unsigned,
+	最大MP	int unsigned,
+	ぶきid	int unsigned,
+	よろいid	int unsigned,
+	たてid	int unsigned
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+drop table 武器;
+create table 武器 (
+	ぶきid  int unsigned,
+	ぶき名  varchar(8),
+	ぶき攻撃力  int,
+	PRIMARY KEY(`ぶきid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+insert into 武器(ぶきid, ぶき名, ぶき攻撃力) values(1, 'ひのきの棒', 5);
+insert into 武器(ぶきid, ぶき名, ぶき攻撃力) values(2, 'ダガー', 10);
+insert into 武器(ぶきid, ぶき名, ぶき攻撃力) values(3, 'はがねの剣', 20);
+insert into 武器(ぶきid, ぶき名, ぶき攻撃力) values(4, 'ドラゴンキラー', 200);
+insert into 武器(ぶきid, ぶき名, ぶき攻撃力) values(1, 'ロトの剣', 2000);
+
+

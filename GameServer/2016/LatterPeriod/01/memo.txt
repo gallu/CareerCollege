@@ -1,0 +1,23 @@
+create table テーブル名 (
+　　カラム名　カラム型
+);
+
+create table テーブル名 (
+　　カラム名　カラム型 ,
+　　カラム名　カラム型 ,
+　　カラム名　カラム型 ,
+　　カラム名　カラム型
+);
+
+insert into テーブル名 values(入れる値);
+
+insert into
+  テーブル名(カラム名, カラム名, ....)
+  values(入れる値, 入れる値, ....);
+
+select * from テーブル名;
+
+select *
+  from char_1
+ where str='abc';
+

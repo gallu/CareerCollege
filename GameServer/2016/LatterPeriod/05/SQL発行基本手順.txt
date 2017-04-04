@@ -1,0 +1,11 @@
+
+// 「準備されたSQL文」を用意
+$sql = '......';
+$pre = $dbh->prepare($sql);
+
+// 値を紐づける
+$pre->bindValue(プレースホルダ名, 値, 型);
+
+// SQL文を発行する
+$r = $pre->execute();
+

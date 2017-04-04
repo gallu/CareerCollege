@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+<title>unique number</title>
+</head>
+
+<body>
+<form>
+固有番号:<input name="u_number" id="u_number" size="40" ><br>
+<br>
+セッションID:<input name="sid" id="sid" size="120" ><br>
+有効時間:<input name="ttl" id="ttl" size="20" ><br>
+有効時間(文字列):<input name="ttl_string" id="ttl_string" size="20" ><br>
+<button type="button" id="get_session_id">セッションID取得</button>
+</form>
+<hr>
+<form>
+セッションID:<input name="sid2" id="sid2" size="120" ><br>
+<button type="button" id="is_auth">認証通信</button>
+</form>
+
+<script src="//dev2.m-fr.net/gallu/js/jquery-2.2.4.min.js"></script>
+<script>
+// セッションID取得
+function get_session_id() {
+  //alert('test2');
+  //alert($("#id").val());
+  //alert($("#pw").val());
+
+  // パラメタの組み立て
+  var request_data = {};
+  request_data.uuid = $("#u_number").val();
+
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "POST",
+     url: "./get_session_id.php",
+     data: request_data,
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       //alert( "response string: " + msg.sid );
+       //alert( "response string: " + msg.ttl );
+       //alert( "response string: " + msg.ttl_string );
+       if ('ok' === msg.status) {
+         $("#sid").val(msg.sid);
+         $("#ttl").val(msg.ttl);
+         $("#ttl_string").val(msg.ttl_string);
+         alert('セッションIDを取得しました！');
+       } else {
+         alert('セッションIDが取得出来ませんでした');
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+// 認証状態確認
+function is_auth_main() {
+  // uuidを先に把握
+  var sid = $("#sid2").val();
+
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "GET",
+     url: "./is_auth_3.php",
+     headers: {
+      'X-Auth': sid
+     },
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       if ('ok' === msg.status) {
+         alert('認証状態です');
+       } else {
+         alert('認証状態ではありません ');
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+
+
+$(document).ready(function(){
+  // alert('test'); // 一番初めはこの行だけ生かして「jQueryが動く」事を確認する!!
+
+  // イベントを登録
+  $('#get_session_id').on('click', get_session_id);
+  $('#is_auth').on('click', is_auth_main);
+
+
+});
+</script>
+</body>
+</html>
+

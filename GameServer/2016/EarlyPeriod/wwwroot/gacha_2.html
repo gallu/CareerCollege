@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+<title>unique number</title>
+</head>
+
+<body>
+<form>
+固有番号:<input name="u_number" id="u_number" size="40" ><br>
+がちゃタイプ(1-2):<input name="gacha_type_id" id="gacha_type_id" size="40" value="1" ><br>
+<button type="button" id="gacha">がちゃを引く！</button>
+</form>
+<script src="//dev2.m-fr.net/gallu/js/jquery-2.2.4.min.js"></script>
+<script>
+
+// がちゃメイン
+function gacha() {
+  // uuidを先に把握
+  var uuid = $("#u_number").val();
+
+  //
+  var request_data = {};
+  request_data.gacha_type_id = $("#gacha_type_id").val();
+
+  //
+  $.ajax({
+     type: "POST",
+     url: "./gacha.php",
+     headers: {
+      'X-Auth': uuid
+     },
+     data: request_data,
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       if ('ok' === msg.status) {
+         alert('カードを取得しました！！');
+         alert(msg.card_info.card_name + ' ' + msg.card_info.attack + '/' + msg.card_info.defense + '(' + msg.card_info.flavor_text + ')' );
+       } else {
+         alert(msg.msg);
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+$(document).ready(function(){
+  // alert('test'); // 一番初めはこの行だけ生かして「jQueryが動く」事を確認する!!
+
+  // イベントを登録
+  $('#gacha').on('click', gacha);
+
+});
+</script>
+</body>
+</html>
+

@@ -1,0 +1,29 @@
+サイコロでキャラメイクしてみる
+　　・D&D(1st)
+　　　http://livedoor.blogimg.jp/mejyuka/imgs/2/e/2e7f6c5d.jpg
+　　・T&T(７版)
+　　　http://www.geocities.jp/curry_250/pc.gif
+　　・ソードワールド(旧版)
+　　　http://www28.atpages.jp/kocvord/SwordWords/SW-crs1600.jpg
+
+攻撃をしてみる(D&D 1st)
+　　1d20で10以上なら命中
+　　1d20で16以上なら命中
+　　1d20で20以上なら命中
+
+乱数をプログラムする
+rand_01.php
+rand_02.php
+rand_03.php
+
+乱数(1(正しくは3)～18)と3d6の違いを理解する
+
+1d6の関数を実装してみる
+
+1d8の関数を実装してみる
+
+1d[n]の関数を実装してみる
+
+3d6を実装してみる
+
+

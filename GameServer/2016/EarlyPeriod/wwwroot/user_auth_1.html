@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+<title>user auth</title>
+</head>
+
+<body>
+<form>
+ID:<input name="id" id="id"><br>
+password:<input type="password" name="pw" id="pw"><br>
+<button type="button" id="login">ログイン！</button>
+</form>
+<form>
+<button type="button" id="logout">ログアウト！</button>
+</form>
+<form>
+<button type="button" id="is_auth">認証中？</button>
+</form>
+
+<script src="//dev2.m-fr.net/gallu/js/jquery-2.2.4.min.js"></script>
+<script>
+
+// ログイン
+function login_main() {
+  // パラメタの組み立て
+  var request_data = {};
+  request_data.id   = $("#id").val();
+  request_data.pw   = $("#pw").val();
+
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "POST",
+     url: "http://dev2.m-fr.net/gallu/login.php",
+     data: request_data,
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       //alert( "response string: " + msg.msg );
+       if ('ok' === msg.status) {
+         alert('ログインしました！');
+       } else {
+         alert('ログインできませんでした…： ' + msg.msg);
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+// ログアウト
+function logout_main() {
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "POST",
+     url: "/gallu/logout.php",
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       alert('ログアウトしました！');
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+}
+
+// 認証状態確認
+function is_auth_main() {
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "GET",
+     url: "/gallu/is_auth_1.php",
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       if ('ok' === msg.status) {
+         alert('認証状態です');
+       } else {
+         alert('認証状態ではありません ');
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+
+}
+
+$(document).ready(function(){
+  // alert('test'); // 一番初めはこの行だけ生かして「jQueryが動く」事を確認する!!
+
+  // イベントを登録
+  $('#login').on('click', login_main);
+  $('#logout').on('click', logout_main);
+  $('#is_auth').on('click', is_auth_main);
+
+
+});
+</script>
+</body>
+</html>

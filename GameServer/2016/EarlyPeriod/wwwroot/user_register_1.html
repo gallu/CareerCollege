@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+<title>user register</title>
+</head>
+
+<body>
+<form>
+名前:<input name="name" id="name"><br>
+ID:<input name="id" id="id"><br>
+password:<input type="password" name="pw" id="pw"><br>
+password再度:<input type="password" name="pw2" id="pw2"><br>
+<button type="button" id="register">登録！！</button>
+</form>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+
+
+<script>
+function register_main() {
+  //alert('test2');
+  //alert($("#id").val());
+  //alert($("#pw").val());
+
+  // パラメタの組み立て
+  var request_data = {};
+  request_data.name = $("#name").val();
+  request_data.id   = $("#id").val();
+  request_data.pw   = $("#pw").val();
+  request_data.pw2  = $("#pw2").val();
+
+  // (非同期)通信：別に非同期である必要もないのだが
+  $.ajax({
+     type: "POST",
+     url: "/gallu/user_register_1.php",
+     data: request_data,
+     success: function(msg){
+       //alert( "response string: " + msg ); // responseがjsonではない時用の確認デバッグプリント
+       //alert( "response string: " + msg.status );
+       //alert( "response string: " + msg.msg );
+       if ('ok' === msg.status) {
+         alert('登録しました！');
+       } else {
+         alert('登録でエラーになりました： ' + msg.msg);
+       }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown){
+       alert( "通信エラーです！！ http error: " + XMLHttpRequest.statusText );
+       alert(textStatus);
+       alert(errorThrown);
+     }
+  });
+
+}
+
+$(document).ready(function(){
+  //alert('test'); // 一番初めはこの行だけ生かして「jQueryが動く」事を確認する!!
+
+  // イベントを登録
+  $('#register').on('click', register_main);
+
+
+});
+</script>
+</body>
+</html>

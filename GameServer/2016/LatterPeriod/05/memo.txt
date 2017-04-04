@@ -1,0 +1,54 @@
+・サーバに接続できる
+	PuTTY
+		・秘密鍵をダブルクリック
+		・dev2.m-fr.netに接続
+		・自分のアカウント名を入力
+	WinSCP
+		・dev2.m-fr.netに接続
+		(・自分のアカウント名を入力)
+・DBに接続できる
+mysql -u アカウント名 -p database名
+quit
+
+・PHPでSQLを発行する (＋ 手でSQLを発行する)
+・認証について
+	「認証」と「認可」
+
+
+
+
+認証：auth
+	authentication：個体認証
+	authorization：許可範囲の確認
+
+----
+ネイティブアプリの場合 その１
+	authentication：ユーザ毎に固有のID
+	authorization：ユーザ毎に固有のID
+
+ネイティブアプリの場合 その２
+	authentication：ユーザ毎に固有のID
+	authorization：セッションID
+
+----
+Webアプリの場合 大枠
+	authentication：id(email)とパスワード
+	authorization：session関数
+
+Webアプリの場合 駄目その１
+	パスワードが平文
+
+Webアプリの場合 駄目その２
+	パスワードがhash(特にmd5)
+		hint：レインボーテーブル
+
+Webアプリの場合 駄目その３
+	パスワードが「共通のsalt」付きhash
+
+Webアプリの場合 PHP的には「古い」実装
+	パスワードが「個別のsalt」付きhash
+	＋ ストレッチ
+
+Webアプリの場合 PHP的によい実装
+	password_hash()を使ったhash
+
