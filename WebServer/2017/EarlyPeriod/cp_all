@@ -1,0 +1,3 @@
+rsync -a ~/Inquiry/ ./ --exclude ".git" --exclude "cp_all" 
+
+
