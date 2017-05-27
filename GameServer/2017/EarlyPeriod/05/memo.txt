@@ -1,0 +1,23 @@
+・乱数について
+・ハッシュについて
+	hash:「データの塊 → 一定の長さのバイナリ」
+・uuid
+・password_hash
+	パスワードの持ち方
+	hash
+	salt + hash
+	* ストレッチ(個別のsalt + hash)
+	* password_hash()
+
+・ログイン実装の方法: 認証と認可
+(authentication / authorization)
+Webブラウザ
+	authentication: idとpassword
+	authorization: セッションID(Cookieでやりとり)
+		(自作するならrandom_bytesなど)
+
+アプリ
+	authentication: ユーザID(uuid)
+	authorization: ユーザID(uuid)(Headerでやりとり)
+		もしくは　セッションID
+		(自作するならrandom_bytesなど)
