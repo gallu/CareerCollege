@@ -1,4 +1,4 @@
-{* inquiry_list.tpl *}
+{* inquiry_detail.tpl *}
 <html>
 <head>
 <!-- Latest compiled and minified CSS -->
@@ -9,38 +9,35 @@
 
 <body>
 <div class="container">
-
-<h1>問い合わせ一覧</h1>
-{* $inquiry_list|var_dump *}
-
-<h2>検索</h2>
-<form action="./inquiry_list.php" method="GET">
-name(あいまい)<input name="name" value="{$find_string.name}"><br>
-email<input name="email" value="{$find_string.email}"><br>
-誕生日<input name="birthday_from" value="{$find_string.birthday_from}">
-      ～<input name="birthday_to" value="{$find_string.birthday_to}"><br>
-<button>検索</button>
-</form>
-
-<h2>一覧</h2>
-<table class="table table-hover">
+{* $inquiry_data|var_dump *}
+<table class="table">
 <tr>
-  <th>ID
-  <th>問い合わせ内容
-{foreach from=$inquiry_list item=i}
-  <tr>
-    <td>{$i.inquiry_id}
-    <td>{$i.inquiry_body}
-    <td><a href="./inquiry_detail.php?inquiry_id={$i.inquiry_id|urlencode}" class="btn btn-nomal">問い合わせ詳細</a>
-{/foreach}
+  <td>id
+  <td>{$inquiry_data.inquiry_id}
+<tr>
+  <td>email
+  <td>{$inquiry_data.email}
+<tr>
+  <td>name
+  <td>{$inquiry_data.name}
+<tr>
+  <td>birthday
+  <td>{$inquiry_data.birthday}
+<tr>
+  <td>body
+  <td><pre>{$inquiry_data.inquiry_body}</pre>
 </table>
+<h2>未実装</h2>
+<ul>
+  <li>「返信をmailする」機能
+  <li>返信のステータス表示
+</ul>
 
 <hr>
 <a href="./top.php">Topに戻る</a>
-
+</div>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-</div>
-</bod>
+</body>
 </html>
+
