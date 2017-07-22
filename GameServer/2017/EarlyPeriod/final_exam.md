@@ -190,8 +190,8 @@ CREATE TABLE user_card (
 
 - user_idは2016とする
 - 使うアイテムのitem_idは14とする
-- item_idテーブルのアイテム個数(item_num)を取得：PHPプログラムであればif文等でチェック。今回はSQLのみなのでチェック処理はオミット
-- item_numテーブルのitem_numの値をデクリメント(マイナス１する)
+- user_itemテーブルのアイテム個数(item_num)を取得：PHPプログラムであればif文等でチェック。今回はSQLのみなのでチェック処理はオミット
+- user_itemテーブルのitem_numの値をデクリメント(マイナス１する)
 
 ```
 CREATE TABLE user_item (
