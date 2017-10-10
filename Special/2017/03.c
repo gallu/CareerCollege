@@ -12,7 +12,7 @@ int main() {
     printf("         %d: %016x\n", i, &ar_i[i]);
   }
   //
-  printf("ar_c: base: %016x\n", ar_i);
+  printf("ar_c: base: %016x\n", ar_c);
   for(i=0; i < 10; ++i) {
     printf("         %d: %016x\n", i, &ar_c[i]);
   }
