@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>Ajax test</title>
+</head>
+<body>
+<h1>Ajax test(jQuery)</h1>
+
+<button id="btn1">ボタン</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+function btn_click() {
+  alert("click !!");
+}
+$(document).ready(function(){
+  $("#btn1").on('click', btn_click);
+});
+*/
+$(document).ready(function(){
+  $("#btn1").on('click', function() {
+    alert("click !!");
+  });
+});
+
+
+</script>
+
+</body>
+</html>
+
+
