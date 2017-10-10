@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>Ajax test</title>
+</head>
+<body>
+<h1>Ajax test(jQuery)</h1>
+
+<button id="btn1">ボタン</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+function btn_click() {
+  // 実際に通信をする
+  var uri = "http://dev2.m-fr.net/furu/ajax/test.php";
+  $.ajax({
+    url: uri,
+    type: 'GET',
+    //dataType: 'json',
+    success: function(data){
+      //alert("req is " + data);
+//console.log(data);
+      alert("data is " + data["num_data"]);
+    }
+  });
+
+}
+$(document).ready(function(){
+  $("#btn1").on('click', btn_click);
+});
+
+</script>
+
+</body>
+</html>
+
+
