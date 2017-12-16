@@ -1,0 +1,15 @@
+// 戦闘結果 ＝ 戦う(味方, 敵);
+pub func １攻撃(攻撃者, 防御者) {
+    攻撃者が防御者に攻撃
+    if (防御者が死んだ) return false;
+    return true;
+}
+pub func 戦う(味方, 敵) {
+    // 戦闘前処理
+    while(true) {
+        //
+        if (false === １攻撃(味方, 敵)) break;
+        if (false === １攻撃(敵, 味方)) break;
+    }
+    // 戦闘後処理
+}

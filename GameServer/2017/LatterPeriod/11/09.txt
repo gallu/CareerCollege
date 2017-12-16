@@ -1,0 +1,14 @@
+class キャラクタ {
+
+pub func get装備武器()
+
+//
+$装備_武器;
+$装備_鎧;
+}
+
+class 味方 extends キャラクタ {
+}
+class 敵 extends キャラクタ {
+}
+

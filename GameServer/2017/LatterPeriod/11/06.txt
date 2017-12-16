@@ -1,0 +1,13 @@
+// 攻撃する
+pub func 攻撃(攻撃者, 防御者) {
+    // 攻撃者が防御者に攻撃
+
+
+
+
+    //if (防御者->is_dead()) return false;
+    //return true;
+    return !防御者->is_dead();
+}
+
+

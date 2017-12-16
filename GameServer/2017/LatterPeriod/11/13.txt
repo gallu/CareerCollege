@@ -1,0 +1,14 @@
+GURPS
+・命中判定
+$skill = 攻撃者->武器スキル();
+$dice = Dice::get('3d6');
+if ($skill < $dice) {
+    はずれ
+}
+// 当たったので次の処理
+$skill = 防御者->回避スキル();
+$dice = Dice::get('3d6');
+if ($skill >= $dice) {
+    回避できた
+}
+// 回避できなくて当たった
