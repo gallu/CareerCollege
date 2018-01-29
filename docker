@@ -1,0 +1,4 @@
+docker run -i -t -d --name=furu_php_work -p 8081:80 centos:latest  /bin/bash
+docker exec -it furu_php_work bash
+
+

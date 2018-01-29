@@ -1,0 +1,184 @@
+yum -y install git zlib-devel libxml2-devel libevent-devel ncurses-devel gd-devel openssl-devel libtool gcc gcc-c++ 
+yum -y install wget make icu libicu-devel curl-devel cmake zip unzip
+
+# httpd
+cd /usr/src
+wget http://ftp.riken.jp/net/apache/apr/apr-1.6.3.tar.gz
+tar zvxf apr-1.6.3.tar.gz
+cd apr-1.6.3/
+vi configure
+>>
+- $RM "$cfgfile"
++ $RM -f "$cfgfile"
+<<
+./configure --prefix=/usr/local/apr/apr-1.6.3
+make -j 2
+make install
+cd /usr/local/apr
+ln -s apr-1.6.3 apr_current
+cd /usr/src
+
+wget http://ftp.riken.jp/net/apache/apr/apr-util-1.6.1.tar.gz
+tar zvxf apr-util-1.6.1.tar.gz
+cd apr-util-1.6.1/
+./configure --prefix=/usr/local/apr-util/apr-util-1.6.1 --with-apr=/usr/local/apr/apr_current
+make
+make install
+cd /usr/local/apr-util/
+ln -s apr-util-1.6.1 apr-util_current
+cd /usr/src
+
+cd /usr/local/
+mkdir pcre
+cd /usr/src
+wget https://sourceforge.net/projects/pcre/files/pcre/8.41/pcre-8.41.tar.gz/download
+mv download pcre-8.41.tar.gz
+tar zvxf pcre-8.41.tar.gz
+cd pcre-8.41
+./configure --prefix=/usr/local/pcre/pcre-8.41
+make
+make install
+cd /usr/local/pcre/
+ln -s pcre-8.41 pcre_current
+cd /usr/src
+
+wget http://ftp.yz.yamagata-u.ac.jp/pub/network/apache/httpd/httpd-2.4.29.tar.gz
+tar zvxf httpd-2.4.29.tar.gz
+cd httpd-2.4.29
+./configure --prefix=/opt/apache/apache-2.4.29 --with-apr=/usr/local/apr/apr_current --with-apr-util=/usr/local/apr-util/apr-util_current --with-pcre=/usr/local/pcre/pcre_current --with-mpm=prefork --enable-mods-shared=most --enable-rewrite --enable-ssl --with-ssl  --enable-so
+make
+make install
+ln -s /opt/apache/apache-2.4.29 /opt/apache/apache_current
+
+#
+cd /opt/apache/apache-2.4.29/conf
+cp -p httpd.conf httpd.conf.bak
+vi httpd.conf
+>>
+-#LoadModule rewrite_module modules/mod_rewrite.so
++LoadModule rewrite_module modules/mod_rewrite.so
+
+-    AllowOverride None
++    #AllowOverride None
++    AllowOverride All
+<<
+
+# 起動、一端これかなぁ………
+/opt/apache/apache-2.4.29/bin/apachectl start
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --reload
+
+cd /usr/src
+wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.20.tar.gz
+tar zvxf mysql-5.7.20.tar.gz
+cd mysql-5.7.20/
+vi ./mysql5_ccc
+--
+rm CMakeCache.txt
+make clean
+cmake \
+  -DCMAKE_INSTALL_PREFIX=/opt/db/mysql-5.7.20 \
+  -DDEFAULT_CHARSET=utf8mb4 \
+  -DDEFAULT_COLLATION=utf8_general_ci \
+  -DWITH_EXTRA_CHARSETS=all \
+  -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp/boost \
+#  -DWITH_PIC=1
+--
+sh ./mysql5_ccc
+make -j 2
+make install
+ln -s /opt/db/mysql-5.7.20 /opt/db/mysql
+
+---------------------------
+# mysql database 作成
+groupadd mysql
+adduser -g mysql mysql
+chown mysql:mysql -R /opt/db/mysql/data
+cd /opt/db/mysql
+/opt/db/mysql-5.7.20/scripts/mysql_install_db --datadir=/opt/db/mysql/data --user=mysql
+
+-----------------
+
+# PHP
+cd /usr/src
+wget http://jp2.php.net/get/php-7.1.11.tar.gz/from/this/mirror
+mv mirror php-7.1.11.tar.gz
+tar zvxf php-7.1.11.tar.gz
+cd php-7.1.11/
+vi php7_ccc
+＞＞
+./configure \
+  --with-config-file-path=/etc \
+  --with-apxs2=/opt/apache/apache_current/bin/apxs \
+  --enable-mbstring \
+  --enable-zip \
+  --enable-bcmath \
+  --enable-pcntl \
+  --enable-exif \
+  --enable-calendar \
+  --enable-sysvmsg \
+  --enable-sysvsem \
+  --enable-sysvshm \
+  --enable-intl \
+  --with-iconv \
+  --with-zlib \
+  --with-openssl \
+  --with-pdo-mysql \
+  --with-curl \  
+＜＜
+sh ./php7_ccc
+make -j 2
+make install
+
+vi /opt/apache/apache-2.4.29/conf/httpd.conf
+LoadModule php7_module        modules/libphp7.so
++AddHandler application/x-httpd-php .php
+
+<IfModule dir_module>
+-    DirectoryIndex index.html
++    DirectoryIndex index.php index.html
+</IfModule>
+
+
+/opt/apache/apache-2.4.29/bin/apachectl restart
+
+----------------------------------------------------
+----
+cd /home/furu
+composer create-project --prefer-dist cakephp/app cake_test
+ln -s /home/furu/cake_test/webroot /opt/apache/apache-2.4.29/htdocs/cake_test
+cd /home/furu/cake_test
+chmod a+w -R logs
+chmod a+w -R tmp
+
+http://dev2.m-fr.net:8081/cake_test/
+
+----
+cd /home/furu
+wget https://codeload.github.com/bcit-ci/CodeIgniter/zip/3.1.0
+mv 3.1.0 CodeIgniter.zip
+unzip CodeIgniter.zip
+ln -s /home/furu/CodeIgniter-3.1.0 /opt/apache/apache-2.4.29/htdocs/CodeIgniter_test
+
+http://dev2.m-fr.net:8081/CodeIgniter_test/
+
+----
+cd /home/furu
+composer create-project slim/slim-skeleton slim_test
+ln -s /home/furu/slim_test/public /opt/apache/apache-2.4.29/htdocs/slim_test
+cd slim_test
+chmod a+w logs
+
+http://dev2.m-fr.net:8081/slim_test/
+----
+cd /home/furu
+composer create-project --prefer-dist laravel/laravel  laravel_test
+ln -s /home/furu/laravel_test/public /opt/apache/apache-2.4.29/htdocs/laravel_test
+cd /home/furu/laravel_test
+chmod a+w -R storage
+
+http://dev2.m-fr.net:8081/laravel_test/
+----
+
+
