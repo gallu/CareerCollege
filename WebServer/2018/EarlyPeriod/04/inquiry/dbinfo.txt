@@ -1,0 +1,14 @@
+-- dbinfo.txt
+DROP TABLE IF EXISTS inquiry;
+CREATE TABLE inquiry (
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+    `name`    VARCHAR(128) COMMENT 'お名前',
+    `address` VARCHAR(512) COMMENT '連絡先',
+    `body`    TEXT         COMMENT '問い合わせ内容',
+    `created_at` DATETIME  COMMENT '問い合わせ時間',
+    `response_name` VARCHAR(64) COMMENT '返信担当者名',
+    `response_body` TEXT        COMMENT '返信内容',
+    `response_at`   DATETIME    COMMENT '返信時間',
+    PRIMARY KEY(`id`)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB
+ , COMMENT='１レコードが１問い合わせを意味するテーブル';
