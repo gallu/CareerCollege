@@ -1,27 +1,44 @@
 <?php // Authentication.php
 
+require_once('./DB.php');
+
 class Authentication
 {
     /**
-     * ƒƒOƒCƒ“
+     * ãƒ­ã‚°ã‚¤ãƒ³
      */
     static public function isLogin($id, $pass){
-        // ‚²‚­ŠÈ’P‚Èvalidate
+        // ã”ãç°¡å˜ãªvalidate
         if ( ('' === $id)||('' === $pass) ) {
             return false;
         }
 
-        // DBƒnƒ“ƒhƒ‹‚ğæ“¾‚·‚é
-XXXXXXX
+        // DBãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—ã™ã‚‹
         $dbh = DB::getHandle();
+//var_dump($dbh); exit;
 
-        // DB‚©‚çID‚Æpassword‚ğæ“¾‚·‚é(SQL”­s)
+        // DBã‹ã‚‰IDã¨passwordã‚’å–å¾—ã™ã‚‹(SQLç™ºè¡Œ)
+        // æº–å‚™ã•ã‚ŒãŸæ–‡(ãƒ—ãƒªãƒšã‚¢ãƒ‰ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ)ã®ä½œæˆ
+        $sql = 'SELECT * FROM users WHERE login_id = :login_id ;';
+        $pre = $dbh->prepare($sql);
+        // ãƒ—ãƒ¬ãƒ¼ã‚¹ãƒ›ãƒ«ãƒ€ã¸ã®å€¤ã®bind
+        $pre->bindValue(':login_id', $id);
+        // SQLã®å®Ÿè¡Œ
+        $r = $pre->execute();
+        // ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
+        $user = $pre->fetch();
+//var_dump($user); exit;
 
-        // “ü—Í‚ÌID/pass‚ÆDB‚ÌID/pass‚ğ”äŠr‚·‚é
-//        if (‚à‚µ•sˆê’v‚¾‚Á‚½‚ç) {
+        // user_idãŒãªã‘ã‚Œã°ãƒ­ã‚°ã‚¤ãƒ³ä¸å¯
+        if (false === $user) {
             return false;
-//        }
-        // ˆê’v‚µ‚Ä‚½‚ç
+        }
+        // å…¥åŠ›ã®passã¨DBã®passã‚’æ¯”è¼ƒã™ã‚‹
+        if (false === password_verify($pass, $user['password'])) {
+            return false;
+        }
+
+        // ä¸€è‡´ã—ã¦ãŸã‚‰
         return true;
     }
 
