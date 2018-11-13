@@ -1,0 +1,25 @@
+<!--  ajax_plain.html  -->
+<html><body><button id="btn_ajax">ajax ボタン</button>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    var btn_ajax = document.getElementById('btn_ajax');
+    btn_ajax.addEventListener('click', function(e){
+        // XMLHttpRequestインスタンスの作成
+        var req = new XMLHttpRequest();
+        // レスポンスが返ってきた時用のcall backの設定
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) { // 通信完了
+              if (req.status == 200) { // 通信成功
+                alert(req.responseText);
+                var data = JSON.parse(req.responseText);
+                alert(data.message);
+              }
+            }
+        }
+        // 実際に通信を発生させる
+        req.open('GET', 'http://dev2.m-fr.net/furu/ajax.php', true); // XXX GETメソッドの場合、ここでURIにパラメタを付ける「
+        req.send(null); // XXX POSTメソッドの場合、ここでデータを渡す
+    }, false);
+}, false);
+</script></body></html>
+
