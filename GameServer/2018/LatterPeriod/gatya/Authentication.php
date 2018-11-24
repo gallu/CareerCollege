@@ -26,7 +26,7 @@ class Authentication
         // SQLの実行
         $r = $pre->execute();
         // データの取得
-        $user = $pre->fetch();
+        $user = $pre->fetch( PDO::FETCH_ASSOC );
 //var_dump($user); exit;
 
         // user_idがなければログイン不可
@@ -39,7 +39,17 @@ class Authentication
         }
 
         // 一致してたら
+        unset($user['password']);
+        unset($user['login_id']);
+        static::$user = $user;
         return true;
     }
 
+    //
+    public static function getUser()
+    {
+        return static::$user;
+    }
+//
+private static $user = null;
 }
