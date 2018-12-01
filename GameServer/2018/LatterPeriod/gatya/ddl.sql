@@ -357,5 +357,13 @@ CREATE TABLE user_cards (
     PRIMARY KEY(user_card_id)
 )CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='1レコードが１ユーザ所持する１枚のカードを意味するテーブル';
 
+-- デイリーガチャ用テーブル
+DROP TABLE daily;
+CREATE TABLE daily (
+    user_id BIGINT UNSIGNED NOT NULL,
+    loot_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    PRIMARY KEY(user_id, loot_date)
+);
 
 
