@@ -1,0 +1,129 @@
+RDB / SQL
+
+MySQL(MariaDB)
+PostgreSQL
+(Oracle)
+(DB2)
+(Sybase)
+(SQL server)
+
+-------------
+数値
+	整数: 負の値は？？
+	少数
+		浮動小数点数
+		固定小数点数
+
+文字
+	(CHAR		BINARY)
+	VARCHAR		VARBINARY
+	TEXT		BLOB
+
+日付
+	日付(yyyy/mm/dd)	DATE
+	日時(yyyy/mm/dd  hh:ii:ss)
+		timestamp		DATETIME
+
+JSON型
+
+-------------
+INSERT / UPDATE / DELETE
+・INSERT - SELECT
+・UPSERT
+	PKが存在したらUPDATE
+	存在しなかったらINSERT
+・TRUNCATE( DELETE FROM テーブル名; )
+
+-------------
+-- 
+SELECT * FROM テーブル名;
+SELECT * FROM テーブル名 LIMIT 0, 10;
+
+SELECT * FROM テーブル名 WHERE 条件;
+	カラム = nnnn
+	カラム <> nnnn
+	カラム LIKE '%hoge%' -- 重いので注意
+	カラム NOT LIKE '%hoge%' -- 重いので注意
+	-- 
+	カラム = NULL	→	カラム IS NULL
+	カラム <> NULL	→	カラム IS NOT NULL
+
+SELECT * FROM テーブル名 ORDER BY カラム名, カラム名[ ASC];
+SELECT * FROM テーブル名 ORDER BY カラム名 DESC;
+
+-- 
+SELECT t1.*, t2.* FROM t1, t2;
+
+TABLE 商品
+	商品名
+	ジャンルID
+
+TABLE ジャンル
+	ジャンルID
+	ジャンル名
+
+SELECT 商品.*, ジャンル.ジャンル名
+  FROM 商品
+       LEFT JOIN ジャンル ON 商品.ジャンルID = ジャンル.ジャンルID
+;
+-- 
+SELECT *
+  FROM 商品
+ WHERE ジャンルID IN (SELECT ジャンルID
+                        FROM ジャンル
+                       WHERE ジャンル名 LIKE '%hoge%'
+                     )
+
+-- 
+TABLE コード：(絶対に変更(UPDATE/DELETE)しない)
+	コードID
+	コード名
+	有効フラグ / 有効日付(From - To)
+
+売上台帳
+	コードID(11)
+	コード名(食品)
+	売上日(2016/12/01)
+
+	コードID(11)
+	コード名(飲料)
+	売上日(2017/10/01)
+
+-- 
+削除フラグ
+
+-- サロゲートキー
+CREATE TABLE テーブル名 (
+    テーブル名_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT
+    テーブル名_id BIGSERIAL
+
+    INDEX -- 「検索で使うか？」「カーディナリティは？」
+
+    UNIQUE(カラム)
+    UNIQUE(カラム, カラム)
+
+    FOREIGN KEY ジャンルID REFERENCES ジャンル(ジャンルID)
+);
+
+/*
+-- FOREIGN KEY用
+TABLE 商品
+	商品名
+	ジャンルID
+
+TABLE ジャンル
+	ジャンルID
+	ジャンル名
+*/
+
+-- 
+SELECT DISTINCT * FROM テーブル名, テーブル名2;
+SELECT カラム名, count(*) FROM テーブル名 GROUP BY カラム名;
+SELECT max(カラム名), min(カラム名) FROM テーブル名 GROUP BY カラム名;
+
+SELECT カラム名, count(*) as cnt
+  FROM テーブル名
+ GROUP BY カラム名;
+HAVING cnt > 1;
+
+
