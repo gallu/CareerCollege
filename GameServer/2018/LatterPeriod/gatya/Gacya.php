@@ -5,6 +5,8 @@ require_once('./DB.php');
 class Gacya {
     //
     static public function getCard($gacha_type) {
+// XXX ここからキャッシュ対象
+// $param, $totalをキャッシュする
         //
         $dbh = DB::getHandle();
         // がちゃtypeのカード一覧を取得
@@ -27,6 +29,7 @@ class Gacya {
         foreach($param as $card_id => $num) {
             $total += $num;
         }
+// XXX ここまでキャッシュ対象
 
         // 乱数を生成
         $key = mt_rand(0, $total - 1);

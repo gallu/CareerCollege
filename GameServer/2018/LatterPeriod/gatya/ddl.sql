@@ -6,6 +6,9 @@ CREATE TABLE users (
     user_name VARCHAR(32) NOT NULL COMMENT 'ユーザ名',
     PRIMARY KEY(user_id)
 )CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='1レコードが１ユーザを意味するテーブル';
+-- 課金カラムの追加
+ALTER TABLE users ADD COLUMN
+      charge BIGINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '課金石';
 
 -- カードテーブル
 CREATE TABLE cards (
@@ -346,6 +349,19 @@ INSERT INTO gachas SET gacha_type='nomal_11', card_id='24', probability='10';
 INSERT INTO gachas SET gacha_type='nomal_11', card_id='9', probability='10';
 INSERT INTO gachas SET gacha_type='nomal_11', card_id='35', probability='5';
 INSERT INTO gachas SET gacha_type='nomal_11', card_id='82', probability='5';
+
+-- 課金用
+INSERT INTO gachas SET gacha_type='charge_1', card_id='2',  probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='81', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='62', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='66', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='7',  probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='65', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='22', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='61', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='50', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='44', probability='9';
+INSERT INTO gachas SET gacha_type='charge_1', card_id='82', probability='10';
 
 -- ユーザが所持するカード情報
 CREATE TABLE user_cards (
