@@ -382,4 +382,130 @@ CREATE TABLE daily (
     PRIMARY KEY(user_id, loot_date)
 );
 
+-- 「１つのBox idの構成要素」
+DROP TABLE box;
+CREATE TABLE box (
+    box_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    box_type VARBINARY(128) NOT NULL,
+    card_id BIGINT UNSIGNED NOT NULL,
+    INDEX idx_box_type (box_type), -- box_typeで検索する可能性が高いのでindexを切る
+    FOREIGN KEY (card_id) REFERENCES cards(card_id), -- 存在しないカードは困るので紐づけておく
+    PRIMARY KEY(box_id)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='1レコードが1BOXの1種類のカードを意味する';
+
+-- 
+INSERT INTO box SET box_type='box_1', card_id=1;
+INSERT INTO box SET box_type='box_1', card_id=2;
+INSERT INTO box SET box_type='box_1', card_id=3;
+INSERT INTO box SET box_type='box_1', card_id=4;
+INSERT INTO box SET box_type='box_1', card_id=5;
+INSERT INTO box SET box_type='box_1', card_id=6;
+INSERT INTO box SET box_type='box_1', card_id=7;
+INSERT INTO box SET box_type='box_1', card_id=8;
+INSERT INTO box SET box_type='box_1', card_id=9;
+INSERT INTO box SET box_type='box_1', card_id=10;
+INSERT INTO box SET box_type='box_1', card_id=11;
+INSERT INTO box SET box_type='box_1', card_id=12;
+INSERT INTO box SET box_type='box_1', card_id=13;
+INSERT INTO box SET box_type='box_1', card_id=14;
+INSERT INTO box SET box_type='box_1', card_id=15;
+INSERT INTO box SET box_type='box_1', card_id=16;
+INSERT INTO box SET box_type='box_1', card_id=17;
+INSERT INTO box SET box_type='box_1', card_id=18;
+INSERT INTO box SET box_type='box_1', card_id=19;
+INSERT INTO box SET box_type='box_1', card_id=20;
+INSERT INTO box SET box_type='box_1', card_id=21;
+INSERT INTO box SET box_type='box_1', card_id=22;
+INSERT INTO box SET box_type='box_1', card_id=23;
+INSERT INTO box SET box_type='box_1', card_id=24;
+INSERT INTO box SET box_type='box_1', card_id=25;
+INSERT INTO box SET box_type='box_1', card_id=26;
+INSERT INTO box SET box_type='box_1', card_id=27;
+INSERT INTO box SET box_type='box_1', card_id=28;
+INSERT INTO box SET box_type='box_1', card_id=29;
+INSERT INTO box SET box_type='box_1', card_id=30;
+INSERT INTO box SET box_type='box_1', card_id=31;
+INSERT INTO box SET box_type='box_1', card_id=32;
+INSERT INTO box SET box_type='box_1', card_id=33;
+INSERT INTO box SET box_type='box_1', card_id=34;
+INSERT INTO box SET box_type='box_1', card_id=35;
+INSERT INTO box SET box_type='box_1', card_id=36;
+INSERT INTO box SET box_type='box_1', card_id=37;
+INSERT INTO box SET box_type='box_1', card_id=38;
+INSERT INTO box SET box_type='box_1', card_id=39;
+INSERT INTO box SET box_type='box_1', card_id=40;
+INSERT INTO box SET box_type='box_1', card_id=41;
+INSERT INTO box SET box_type='box_1', card_id=42;
+INSERT INTO box SET box_type='box_1', card_id=43;
+INSERT INTO box SET box_type='box_1', card_id=44;
+INSERT INTO box SET box_type='box_1', card_id=45;
+INSERT INTO box SET box_type='box_1', card_id=46;
+INSERT INTO box SET box_type='box_1', card_id=47;
+INSERT INTO box SET box_type='box_1', card_id=48;
+INSERT INTO box SET box_type='box_1', card_id=49;
+INSERT INTO box SET box_type='box_1', card_id=50;
+INSERT INTO box SET box_type='box_1', card_id=51;
+INSERT INTO box SET box_type='box_1', card_id=52;
+INSERT INTO box SET box_type='box_1', card_id=53;
+INSERT INTO box SET box_type='box_1', card_id=54;
+INSERT INTO box SET box_type='box_1', card_id=55;
+INSERT INTO box SET box_type='box_1', card_id=56;
+INSERT INTO box SET box_type='box_1', card_id=57;
+INSERT INTO box SET box_type='box_1', card_id=58;
+INSERT INTO box SET box_type='box_1', card_id=59;
+INSERT INTO box SET box_type='box_1', card_id=60;
+INSERT INTO box SET box_type='box_1', card_id=61;
+INSERT INTO box SET box_type='box_1', card_id=62;
+INSERT INTO box SET box_type='box_1', card_id=63;
+INSERT INTO box SET box_type='box_1', card_id=64;
+INSERT INTO box SET box_type='box_1', card_id=65;
+INSERT INTO box SET box_type='box_1', card_id=66;
+INSERT INTO box SET box_type='box_1', card_id=67;
+INSERT INTO box SET box_type='box_1', card_id=68;
+INSERT INTO box SET box_type='box_1', card_id=69;
+INSERT INTO box SET box_type='box_1', card_id=70;
+INSERT INTO box SET box_type='box_1', card_id=71;
+INSERT INTO box SET box_type='box_1', card_id=72;
+INSERT INTO box SET box_type='box_1', card_id=73;
+INSERT INTO box SET box_type='box_1', card_id=74;
+INSERT INTO box SET box_type='box_1', card_id=75;
+INSERT INTO box SET box_type='box_1', card_id=76;
+INSERT INTO box SET box_type='box_1', card_id=77;
+INSERT INTO box SET box_type='box_1', card_id=78;
+INSERT INTO box SET box_type='box_1', card_id=79;
+INSERT INTO box SET box_type='box_1', card_id=80;
+INSERT INTO box SET box_type='box_1', card_id=81;
+INSERT INTO box SET box_type='box_1', card_id=82;
+INSERT INTO box SET box_type='box_1', card_id=83;
+INSERT INTO box SET box_type='box_1', card_id=84;
+INSERT INTO box SET box_type='box_1', card_id=85;
+INSERT INTO box SET box_type='box_1', card_id=86;
+INSERT INTO box SET box_type='box_1', card_id=87;
+INSERT INTO box SET box_type='box_1', card_id=1;
+INSERT INTO box SET box_type='box_1', card_id=2;
+INSERT INTO box SET box_type='box_1', card_id=3;
+INSERT INTO box SET box_type='box_1', card_id=4;
+INSERT INTO box SET box_type='box_1', card_id=5;
+INSERT INTO box SET box_type='box_1', card_id=6;
+INSERT INTO box SET box_type='box_1', card_id=7;
+INSERT INTO box SET box_type='box_1', card_id=8;
+INSERT INTO box SET box_type='box_1', card_id=9;
+INSERT INTO box SET box_type='box_1', card_id=10;
+INSERT INTO box SET box_type='box_1', card_id=11;
+INSERT INTO box SET box_type='box_1', card_id=12;
+INSERT INTO box SET box_type='box_1', card_id=13;
+
+
+-- 「ユーザが持っているBOX情報」
+DROP TABLE user_box;
+CREATE TABLE user_box (
+    user_id BIGINT UNSIGNED NOT NULL,
+    box_type VARBINARY(128) NOT NULL,
+    data LONGBLOB NOT NULL COMMENT 'BOXがちゃのデータ(serialize)',
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (box_type) REFERENCES box(box_type),
+    PRIMARY KEY(user_id, box_type)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='1レコードが１ユーザの１種類のBOXがちゃデータ';
+
+
 
