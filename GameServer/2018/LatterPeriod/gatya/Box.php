@@ -43,6 +43,28 @@ class Box {
         $this->data = $data;
     }
 
+    // データの保存をする
+    public function update()
+    {
+        // DBハンドルの取得
+        $dbh = DB::getHandle();
+        // SQLの作成
+        $sql = 'UPDATE user_box SET data = :data
+                 WHERE user_id = :user_id
+                       AND
+                       box_type = :box_type;';
+        $pre = $dbh->prepare($sql);
+        // バインド
+        $pre->bindValue(':user_id', $this->data['user_id']);
+        $pre->bindValue(':box_type', $this->data['box_type']);
+        $pre->bindValue(':data', $this->data['data']);
+        // 実行
+        $r = $pre->execute();
+        if (false === $r) {
+            throw new Exception('SQLでエラー'); // XXX
+        }
+    }
+
     // リセット
     public function reset($update_flg = true) {
         // DBハンドルの取得
@@ -65,10 +87,12 @@ class Box {
         // 配列のシャッフル
         shuffle($box_list);
 //var_dump($box_list);
+        // dataを入れる
+        $this->data['data'] = serialize($box_list);
 
         if (true === $update_flg) {
             // update
-            // XXXXXXX
+            $this->update();
         }
 
         //
@@ -79,17 +103,22 @@ class Box {
     public function drow() {
         // dataの中身をunserialize
         $box_list = unserialize( $this->data['data'] );
-var_dump($box_list);
-
+//var_dump($box_list);
         // dataの中身が「空」なら、reset()をcallする
         if ([] === $box_list) {
             $box_list = $this->reset(false); // Updateはしない
-var_dump($box_list);
+//var_dump($box_list);
         }
-
         // 1枚引く
+	$card_id = array_pop($box_list);
+//var_dump($card_id, $box_list);
+
         // 「引いた後の配列」をserialize
+        $this->data['data'] = serialize($box_list);
         // update
+        $this->update();
+        //
+        return $card_id;
     }
 
 //

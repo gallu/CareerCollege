@@ -12,6 +12,8 @@ require_once('./init_auth.php');
 <hr>
 <a href="./user_card_list.php">所持カード一覧</a><br>
 <hr>
+<a href="./box_drow.php">Boxがちゃ　を引く</a><br>
+<hr>
 <a href="./charge.php">有料がちゃ　を引く</a><br>
 <hr>
 <a href="./daily.php">デイリーがちゃ　を引く</a><br>
