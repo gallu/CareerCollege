@@ -30,9 +30,9 @@
 ただ、操作などで細部に少し違いがあるので、あくまでも「参考」である、と認識してください。
 主に「公開鍵の設置の仕方」「秘密鍵の保存場所」が大きく異なります。
 
-https://www.tempest.jp/security/keygen.html
-https://ja.osdn.net/projects/winscp/wiki/ui_puttygen
-https://www.hulft.com/help/ja-jp/DataSpider/dss42/help/ja/servista/ssh_keygen.html
-https://www.logw.jp/server/8427.html
+https://www.tempest.jp/security/keygen.html    
+https://ja.osdn.net/projects/winscp/wiki/ui_puttygen    
+https://www.hulft.com/help/ja-jp/DataSpider/dss42/help/ja/servista/ssh_keygen.html    
+https://www.logw.jp/server/8427.html    
 
 
