@@ -13,6 +13,7 @@ int main(void) {
   for(int i = 1; i <= 100; i++) {
     printf("%d\n", i);
   }
+
   // u‚P‚©‚ç‚P‚O‚O‚Ü‚Å‚Ì‘˜av‚ÌŒvŽZ
   int total = 0;
   for(int i = 1; i <= 100; i++) {
