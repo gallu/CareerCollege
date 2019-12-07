@@ -1,0 +1,7 @@
+-- ユーザテーブル：１レコードが１人のユーザ情報
+CREATE TABLE users(
+  user_id SERIAL COMMENT 'ユーザID',
+  user_token VARBINARY(128) NOT NULL UNIQUE COMMENT 'ユーザ識別子',
+  name VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'ユーザ名',
+  PRIMARY KEY(user_id)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='ユーザテーブル';
