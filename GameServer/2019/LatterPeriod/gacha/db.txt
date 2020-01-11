@@ -5,3 +5,50 @@ CREATE TABLE users(
   name VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'ユーザ名',
   PRIMARY KEY(user_id)
 )CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='ユーザテーブル';
+
+-- カードテーブル
+CREATE TABLE cards(
+  card_id INT UNSIGNED NOT NULL COMMENT 'カードID',
+  card_name VARCHAR(64) UNIQUE COMMENT 'カード名',
+  card_offense INT COMMENT '攻撃力',
+  card_defense INT COMMENT '防御力',
+  flavor_text TEXT COMMENT 'フレーバーテキスト',
+  PRIMARY KEY(card_id)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='ユーザテーブル';
+
+-- がちゃ詳細テーブル
+CREATE TABLE gacha_detail(
+  gacha_id INT UNSIGNED NOT NULL COMMENT 'がちゃID',
+  card_id INT UNSIGNED NOT NULL COMMENT 'カードID',
+  probability INT UNSIGNED NOT NULL COMMENT '出現確率',
+  CONSTRAINT fk_gacha_detail_card FOREIGN KEY (card_id) REFERENCES cards (card_id),
+  PRIMARY KEY(gacha_id, card_id)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='がちゃ詳細テーブル';
+
+-- ユーザカードテーブル
+CREATE TABLE user_card(
+  user_card_id SERIAL COMMENT 'ID',
+  user_id BIGINT UNSIGNED NOT NULL COMMENT 'ユーザID',
+  card_id INT UNSIGNED NOT NULL COMMENT 'カードID',
+  created_at DATETIME NOT NULL COMMENT '作成日時',
+  -- 
+  CONSTRAINT fk_user_card_card FOREIGN KEY (card_id) REFERENCES cards (card_id),
+  CONSTRAINT fk_user_card_user FOREIGN KEY (user_id) REFERENCES users (user_id),
+  PRIMARY KEY(user_card_id)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='1ユーザが持ってる1枚のカード';
+
+/*
+CREATE TABLE user_card(
+  user_id SERIAL COMMENT 'ユーザID',
+  card_id INT UNSIGNED NOT NULL COMMENT 'カードID',
+  num INT UNSIGNED NOT NULL COMMENT '所持している枚数',
+  PRIMARY KEY(user_id, card_id)
+)CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='';
+*/
+
+
+
+
+
+
+
