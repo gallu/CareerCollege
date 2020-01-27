@@ -82,6 +82,7 @@ CREATE TABLE f_exam (
   created_at DATETIME NOT NULL COMMENT 'レコード作成日付',
   PRIMARY KEY(f_exam_id)
 )CHARACTER SET 'utf8mb4', ENGINE=InnoDB, COMMENT='テストテーブル';
+```
 
 なお、PDO接続で「適切なoptionが指定されていない」場合は減点対象とします。    
 
