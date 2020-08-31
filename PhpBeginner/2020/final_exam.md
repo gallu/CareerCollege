@@ -53,7 +53,9 @@ function test() {
 ```
 
 という関数がある前提で
-・test() の結果がfalseの間、 問3 の「echo '.';」を繰り返す
+
+- test() の結果がfalseの間、 問3 の「echo '.';」を繰り返す
+
 コードを、while文で書きなさい。
 
 
