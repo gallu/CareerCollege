@@ -1,76 +1,76 @@
-# 2019�N ��� ��������
+# 2019年 後期 期末試験
 
-�����̉񓚂́A�ȉ��̒ʂ�ɂ��邱�ƁB
+試験の回答は、以下の通りにすること。
 
-- �P�₠����P�t�@�C���ɋL�q�B�t�@�C�����́u1-1.txt�v�ł��u��1-1.txt�v�ł��B�t�H�[�}�b�g��text�A�g���q��.txt�Ƃ���
-- �����R�[�h��UTF-8�̂��邱��
+- １問あたり１ファイルに記述。ファイル名は「1-1.txt」でも「問1-1.txt」でも可。フォーマットはtext、拡張子は.txtとする
+- 文字コードはUTF-8のすること
 
-�����̒��ӎ����͈ȉ��̒ʂ�
+試験の注意事項は以下の通り
 
-- �����Ȃ̂Łu���͂Ƃ̑��k�v�u���l�̓��Ă̔`�����v�͕s����
-- �l�b�g�����g���Ē��ׂ�̂͋���
-- �R�[�h��SQL��׋��p�T�[�o(dev2.m-fr.net)�Ŋm�F����̂͐���
-- ������̖����u�P�₠����10�_�v�𖞓_�Ƃ��A��肪��������K�X���_����
+- 試験なので「周囲との相談」「他人の答案の覗き見」は不許可
+- ネット等を使って調べるのは許可
+- コードやSQLを勉強用サーバ(dev2.m-fr.net)で確認するのは推奨
+- いずれの問題も「１問あたり10点」を満点とし、問題があったら適宜減点する
 
-��o�́A�ȉ��̒ʂ�
+提出は、以下の通り
 
-- ���Ɠ��ɒ�o����ꍇ�́A�t�@�C���T�[�o���̏���̃t�H���_�̒��Ɂu�����̖��O�̃t�H���_�v���쐬���āA�����ɉ񓚃t�@�C���ꎮ���o
-- ���ƊO�Œ�o����ꍇ�́u�����̖��O�̃t�H���_�v�ɉ񓚃t�@�C���ꎮ����ꂽ��Ԃ�zip�`���Ōł߂ċ����o�R�Œ�o(��o������1/27)
+- 授業内に提出する場合は、ファイルサーバ内の所定のフォルダの中に「自分の名前のフォルダ」を作成して、そこに回答ファイル一式を提出
+- 授業外で提出する場合は「自分の名前のフォルダ」に回答ファイル一式を入れた状態でzip形式で固めて教務経由で提出(提出期限は1/27)
 
-## (��1)�����̐���
+## (問1)乱数の生成
 
-�u1�`100�܂ł̊Ԃ̗����v���o�͂���R�[�h�������Ȃ����B
+「1～100までの間の乱数」を出力するコードを書きなさい。
 
-## (��2)���������token�̐���
+## (問2)推測困難なtokenの生成
 
-�u���������token�̐����v���o�͂���R�[�h�������Ȃ����B    
-�{�ݖ�ł͈�[�A16byte�ȏ�̋�Ԃ�����΁u��������v�Ƃ݂Ȃ��܂��B    
+「推測困難なtokenの生成」を出力するコードを書きなさい。    
+本設問では一端、16byte以上の空間があれば「推測困難」とみなします。    
 
-## (��3)�u�ȒP�ȃT�C�R���֐��̍쐬�v�̍쐬
+## (問3)「簡単なサイコロ関数の作成」の作成
 
-�unDm�v�̕\�L(��: 1d6 , 2d8 �Ȃ�)�𕶎���Ŏ󂯎��A���̌��ʂ�Ԃ��֐��������Ȃ����B    
-�֐����́udice�v�Ƃ��܂��B    
+「nDm」の表記(例: 1d6 , 2d8 など)を文字列で受け取り、その結果を返す関数を書きなさい。    
+関数名は「dice」とします。    
 
-## (��4)�ψ�Ȋm���̂�����
+## (問4)均一な確率のがちゃ
 
-�u�S�Ă̏o���p�x�������m���v�̂�������o�͂���R�[�h�������Ȃ����B    
-������Ɏg���f�[�^�͈ȉ��̂��̂��R�s�y���ăR�[�h�ɓ���Ȃ����B    
-
-```
-$cards = [
-	1 => '�X���C��',
-	2 => '�I�[�N',
-	3 => '�O���t�H��',
-	4 => '�h���S��',
-	5 => '���X�g�����X�^�[',
-];
-```
-
-## (��5)�s�ψ�Ȋm���̂�����
-
-�u�J�[�h�ɂ���ďo���p�x���قȂ�v��������o�͂���R�[�h�������Ȃ����B    
-������Ɏg���f�[�^�͈ȉ��̂��̂��R�s�y���ăR�[�h�ɓ���Ȃ����B    
-�ȉ��̂����Aprobability�̒l���u�m���v�ɂȂ�܂��B
+「全ての出現頻度が同じ確率」のがちゃを出力するコードを書きなさい。    
+がちゃに使うデータは以下のものをコピペしてコードに入れなさい。    
 
 ```
 $cards = [
-	['id' => 1,'name' => '�X���C��', 'probability' => 50],
-	['id' => 2,'name' => '�I�[�N', 'probability' => 20],
-	['id' => 3,'name' => '�O���t�H��', 'probability' => 15],
-	['id' => 4,'name' => '�h���S��', 'probability' => 10],
-	['id' => 5,'name' => '���X�g�����X�^�[', 'probability' => 5],
+	1 => 'スライム',
+	2 => 'オーク',
+	3 => 'グリフォン',
+	4 => 'ドラゴン',
+	5 => 'ラストモンスター',
 ];
 ```
 
-## (��6)�g�����U�N�V�������g��SQL���̍쐬�F�L��������
+## (問5)不均一な確率のがちゃ
 
-�L���ۋ���������������߂ɕK�v��SQL���A�g�����U�N�V�������g���ēK�؂ɏ����Ȃ����B    
-�܂��A�J�[�h�������O�Ɂu�L���ۋ��̎c��������Ă��邩�ǂ����v��SQL�Ŋm�F���Ȃ����B    
+「カードによって出現頻度が異なる」がちゃを出力するコードを書きなさい。    
+がちゃに使うデータは以下のものをコピペしてコードに入れなさい。    
+以下のうち、probabilityの値が「確率」になります。
 
-- user_id��2016�Ƃ���
-- user�e�[�u���̎c��(money)���擾�FPHP�v���O�����ł����if�����Ń`�F�b�N�B�����SQL�݂̂Ȃ̂Ń`�F�b�N�����̓I�~�b�g
-- user�e�[�u����money�̒l��100�A���Z
-- user_card�e�[�u����insert�B�������J�[�hID(card_id)��114�Ƃ���
+```
+$cards = [
+	['id' => 1,'name' => 'スライム', 'probability' => 50],
+	['id' => 2,'name' => 'オーク', 'probability' => 20],
+	['id' => 3,'name' => 'グリフォン', 'probability' => 15],
+	['id' => 4,'name' => 'ドラゴン', 'probability' => 10],
+	['id' => 5,'name' => 'ラストモンスター', 'probability' => 5],
+];
+```
+
+## (問6)トランザクションを使うSQL文の作成：有料がちゃ
+
+有料課金がちゃを引くために必要なSQLを、トランザクションを使って適切に書きなさい。    
+また、カードを引く前に「有料課金の残高が足りているかどうか」をSQLで確認しなさい。    
+
+- user_idは2016とする
+- userテーブルの残高(money)を取得：PHPプログラムであればif文等でチェック。今回はSQLのみなのでチェック処理はオミット
+- userテーブルのmoneyの値を100、減算
+- user_cardテーブルにinsert。引いたカードID(card_id)は114とする
 
 ```
 CREATE TABLE user (
@@ -90,47 +90,47 @@ CREATE TABLE user_card (
 );
 ```
 
-## Box������
+## Boxがちゃ
 
-Box��������쐬�����ŕK�v�ȁA�ȉ��̃v���O�����������Ȃ����B    
-�Ȃ��A�O��ɂȂ�uBOX�ɓ���J�[�h���X�g�v�́A�ȉ��̃R�[�h���g���Ȃ����B    
+Boxがちゃを作成する上で必要な、以下のプログラムを書きなさい。    
+なお、前提になる「BOXに入るカードリスト」は、以下のコードを使いなさい。    
 
 ```
 $box = [
 	//
-	['name' => '�S�u����'],
-	['name' => '�S�u����'],
-	['name' => '�S�u����'],
-	['name' => '�S�u����'],
-	['name' => '�S�u����'],
+	['name' => 'ゴブリン'],
+	['name' => 'ゴブリン'],
+	['name' => 'ゴブリン'],
+	['name' => 'ゴブリン'],
+	['name' => 'ゴブリン'],
 	//
-	['name' => '�X���C��'],
-	['name' => '�X���C��'],
-	['name' => '�X���C��'],
-	['name' => '�X���C��'],
+	['name' => 'スライム'],
+	['name' => 'スライム'],
+	['name' => 'スライム'],
+	['name' => 'スライム'],
 	//
-	['name' => '�h���S��'],
+	['name' => 'ドラゴン'],
 ];
 ```
 
-### (��7)BOX�̃��Z�b�g
+### (問7)BOXのリセット
 
-�u������BOX�̃��Z�b�g�v������R�[�h�������Ȃ����B    
-���̕ۑ��́u$_SESSION['box_string']�v�Ɋi�[���Ȃ����B
+「がちゃBOXのリセット」をするコードを書きなさい。    
+情報の保存は「$_SESSION['box_string']」に格納しなさい。
 
-### (��8)BOX����1������
+### (問8)BOXから1枚引く
 
-- $_SESSION['box_string'] �ɕۑ����Ă���Box����1���A�J�[�h������
-- �u���������Box���v�����߂�$_SESSION['box_string'] �ɕۑ�����
-- �������J�[�h�̏����o�͂���(��[�Avar_dump()�ł悢)
+- $_SESSION['box_string'] に保存しているBoxから1枚、カードを引く
+- 「引いた後のBox情報」を改めて$_SESSION['box_string'] に保存する
+- 引いたカードの情報を出力する(一端、var_dump()でよい)
 
-�̋���������R�[�h�������Ȃ����B
+の挙動をするコードを書きなさい。
 
 
-## (��9)���FWoD����֐��̍쐬
+## (問9)難問：WoD判定関数の作成
 
-WoD(World of Darkness)�̔���V�X�e�����v���O����(�֐�)�ŏ����Ȃ����B    
-�ȉ��̊֐��d�l�Ƃ��܂��B
+WoD(World of Darkness)の判定システムをプログラム(関数)で書きなさい。    
+以下の関数仕様とします。
 
 ```
 function JudgmentWoD($difficulty, $dicepool) : int
@@ -138,18 +138,18 @@ function JudgmentWoD($difficulty, $dicepool) : int
 }
 ```
 
-WoD(World of Darkness)�̔���V�X�e���́A�ȉ��̒ʂ�ɂȂ�܂��B    
+WoD(World of Darkness)の判定システムは、以下の通りになります。    
 
-- �K�v�ȏ��́u��Փx(2�`10�̐���): $difficulty�v�u�_�C�X�v�[��(0�`20�ȉ����x�̐���): $dicepool�v�Ȃ̂ŁA�����͂���2��
-- �߂�l���u�����x�v�ƌĂт܂��B�����ŁA�����l��0�ł��B
-- �����͈ȉ��̒ʂ�
-  + �_�C�X�v�[���̐������A10�ʃ_�C�X��U��܂�
-  + �_�C�X1���Ɂu��Փx�v�Ɣ�r�����܂�
-    * �_�C�X�̏o�ڂ��u��Փx�ȏ�v�Ȃ�A�����x��+1���܂�
-    * �����_�C�X�̏o�ڂ�1�̏ꍇ�A�����x��-1���܂�
-  + ����ꂽ�����x��߂�l�Ƃ���return���܂�
+- 必要な情報は「難易度(2～10の整数): $difficulty」「ダイスプール(0～20以下程度の整数): $dicepool」なので、引数はこの2つ
+- 戻り値を「成功度」と呼びます。整数で、初期値は0です。
+- 処理は以下の通り
+  + ダイスプールの数だけ、10面ダイスを振ります
+  + ダイス1つ毎に「難易度」と比較をします
+    * ダイスの出目が「難易度以上」なら、成功度を+1します
+    * もしダイスの出目が1の場合、成功度を-1します
+  + 得られた成功度を戻り値としてreturnします
 
-## (��10)�����ɂ���
+## (問10)将来について
 
-�u�������T�[�o�T�C�h�����v�Ȃ�ǂ�ȃQ�[������肽�����H �����R�ɏ����Ă��������B    
+「自分がサーバサイドを作る」ならどんなゲームを作りたいか？ を自由に書いてください。    
 
