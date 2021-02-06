@@ -61,9 +61,9 @@ malloc / realloc 関数を使って、以下の動きをするコードを書き
 - 上述の変数 s に「charが10文字はいる領域」をmallocで割り当てます
 - 変数 s に"abcdefg" を代入します(文字の終端(\0)に注意)
 - 変数 s を、printf の %s で出力します
-- 上述の変数 s に「charが36文字はいる領域」をreallocで割り当て(拡張し)ます
-- 変数 s の、"abcdefg" の後ろに "hjiklmnopqr" を代入します(文字の終端(\0)に注意)
-- 変数 s を、printf の %s で出力します
+- 上述の変数 s で割り当てられた領域に、「charが36文字はいる領域」をreallocで割り当て(拡張し)ます
+- reallocで拡張した領域の、"abcdefg" の後ろに "hjiklmnopqr" を代入します(文字の終端(\0)に注意)
+- reallocで拡張した領域の を、printf の %s で出力します
 
 「エラーチェック」「free」がない場合は減点とします。    
 
