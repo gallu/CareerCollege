@@ -184,5 +184,5 @@ class Hogeとclass Foo、class Barを作成しなさい。
 - Fooポインタ型の変数に、new演算子でBarクラスのインスタンスを作成する
 - 上述インスタンスで p_func() を呼ぶと「文字列 "Bar::p_func" と、続いて引数の値を出力」が動く事
 - 上述インスタンスで t_func() を呼ぶと「文字列 "Foo#t_func" の出力」が動く事
-- 上述インスタンスで vt_func() を呼ぶと「文字列 "Bar#t_func" の出力」が動く事
+- 上述インスタンスで vt_func() を呼ぶと「文字列 "Bar#vt_func" の出力」が動く事
 
