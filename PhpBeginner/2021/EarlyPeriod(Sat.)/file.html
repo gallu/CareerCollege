@@ -1,0 +1,8 @@
+<!--  file.html  -->
+<!-- データのエンコード方式である enctype は、必ず以下のようにしなければなりません -->
+<form enctype="multipart/form-data" action="./file_upload.php" method="POST">
+    <!-- input 要素の name 属性の値が、$_FILES 配列のキーになります -->
+    このファイルをアップロード: <input name="userfile" type="file" />
+<br>
+    <button>ファイルを送信</button>
+</form>
