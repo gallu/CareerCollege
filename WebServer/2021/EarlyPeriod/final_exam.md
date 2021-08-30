@@ -112,10 +112,10 @@ array(6) {
 以下のチェックを行います。    
 試験のファイルには「アクセス可能なURI(学校のサーバ( dev2.m-fr.net に限る：DBの中を確認するので)」を記述しなさい。
 
-- TopPage が https://dev2.m-fr.net/furu/AccountBooks2021/ で表示されること
-- 会員登録で、エラーの場合に「エラーである事が出力される」「入力が保持される」事 https://dev2.m-fr.net/furu/AccountBooks2021/register.php
-- 会員登録が出来ること(アクティベーションまで) https://dev2.m-fr.net/furu/AccountBooks2021/register_fin_print.php
-- 会員登録が出来ること(アクティベーション以降) https://dev2.m-fr.net/furu/AccountBooks2021/register_activation.php
+- TopPage が https://dev2.m-fr.net/アカウント名/AccountBooks2021/ で表示されること
+- 会員登録で、エラーの場合に「エラーである事が出力される」「入力が保持される」事 https://dev2.m-fr.net/アカウント名/AccountBooks2021/register.php
+- 会員登録が出来ること(アクティベーションまで) https://dev2.m-fr.net/アカウント名/AccountBooks2021/register_fin_print.php
+- 会員登録が出来ること(アクティベーション以降) https://dev2.m-fr.net/アカウント名/AccountBooks2021/register_activation.php
 
 なお、インターンなどで授業にあまり出ておらずコードが書けていない人は、以下の救済措置を作成します。    
 
