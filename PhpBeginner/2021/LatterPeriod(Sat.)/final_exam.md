@@ -22,7 +22,7 @@
 
 以下の処理を実装します。
 
-- $i に random_int(0, 3) の値を代入します
+- $i に `random_int(0, 3)` の値を代入します
 - $i が0なら「Zero」と出力します
 - $i が1なら「1」と出力します
 - $i が2なら「2nd」と出力します
@@ -54,29 +54,22 @@
 
 上述を、while文で実装しなさい。
 
-## (問3) file
+## (問3) file: 10点
 
-PHPで、自分自身のファイル名は __FILE__ 定数で得られます。
-
-### (問3-1): 5点
-
-fopenを使って自分自身をopenして、fgets()関数を使って各行を出力しなさい
-
-### (問3-2): 5点
-
-SplFileObjectを使って自分自身をopenして、foreachを使って各行を出力しなさい
+PHPで、自分自身のファイル名は \_\_FILE\_\_ 定数で得られます。    
+`SplFileObject` を使って自分自身をopenして、`foreach` を使って各行を出力しなさい    
 
 ## (問4) formからの情報の取得: 10点
 
 ```
-<form action="./5-1.php" method="POST">
+<form action="./4.php" method="POST">
 タイトル: <input name="title"><br>
 名前: <input name="name"><br>
 <button>書き込む</button>
 </form>
 ```
 
-のformの「書き込む」ボタンを押した時に動く 5.php を書きなさい。    
+のformの「書き込む」ボタンを押した時に動く 4.php を書きなさい。    
 処理は以下の通りとします。  
 
 - 変数 $titme に、タイトルで入力された値を代入
