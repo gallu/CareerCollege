@@ -1,0 +1,23 @@
+<!-- form.html -->
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>form</h1>
+    <form action="./form.php" method="POST">
+        name: <input name="name"><br>
+        email: <input type="email" name="email"><br>
+        password: <input type="password" name="pw"><br>
+        <input type="radio" name="aaa" value="1">ラジオ1
+        <input type="radio" name="aaa" value="2">ラジオ2
+        <input type="radio" name="aaa" value="3">ラジオ3
+        <br>
+        <!-- checkboxは、nameに[]を付ける必要がある -->
+        <input type="checkbox" name="ccc[]" value="c1">チェック1
+        <input type="checkbox" name="ccc[]" value="c2">チェック2
+        <input type="checkbox" name="ccc[]" value="c3">チェック3
+        <br>
+        <button>送信</button>
+    </form>
+  </body>
+</html>
