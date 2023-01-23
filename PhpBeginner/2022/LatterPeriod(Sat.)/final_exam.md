@@ -99,7 +99,7 @@ CREATE TABLE `f_exam` (
 
 上述にデータを入れるコードを書きなさい。    
 
-- DB接続ハンドルは問6のコードを使って良い。ので、 `require_once('./5.php');` でよい(別途書いてもよい)
+- DB接続ハンドルは問5のコードを使って良い。ので、 `require_once('./5.php');` でよい(別途書いてもよい)
 - f_exam_id はAUTO_INCREMENT なので、INSERT文には書かないこと
 - nameとquantity には好きな値を入れる
 - created_at には「INSERTする瞬間の日時」を入れる
