@@ -1,0 +1,22 @@
+echo
+random_int
+四則演算
+配列 / 連想配列 / count() / foreach()
+if-else if-else
+<form> / $_GET / $_POST / htmlspecialchars
+header / ob_start() / ob_end_flush()
+session_start() / $_SESSION / $_COOKIE / setcookie()
+checkdate()
+date() / time() / strtotime()
+DateTime()
+    format
+    add
+DateInterval()
+DateTimeImmutable()
+DatePeriod()
+fopen() / fgets() / fgetcsv() / fputcsv() / fclose()
+    mb_convert_encoding()
+file() / file_get_contents() /file_put_contents()
+SplFileObject
+    setFlags()
+    fputcsv()

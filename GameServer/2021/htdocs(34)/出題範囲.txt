@@ -1,0 +1,7 @@
+echo
+変数と四則演算
+乱数
+if-elseif-else
+for / while
+explode / intval / strtolower / strtoupper
+配列 / 連想配列 / count / foreach

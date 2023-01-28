@@ -1,0 +1,53 @@
+echo
+
+random_int
+
+四則演算
+
+$u = $s . $t;
+
+[]
+count()
+foreach()
+
+if () {
+} else if () {
+} else {
+}
+
+<form>
+$_GET
+$_POST
+htmlspecialchars
+
+header
+ob_start()
+ob_end_flush()
+
+$_SESSION
+$_COOKIE
+setcookie()
+
+checkdate()
+date()
+time()
+strtotime()
+DateTime()
+DateInterval()
+DateTimeImmutable()
+DatePeriod()
+
+fopen()
+fgets()
+fgetcsv()
+    mb_convert_encoding()
+fclose()
+
+file()
+file_get_contents()
+file_put_contents()
+
+SplFileObject
+    setFlags()
+    fgetcsv()
+    fputcsv()

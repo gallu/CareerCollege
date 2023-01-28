@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+<title>カフェショップ会計</title>
+</head>
+
+<body>
+<h1>ユーザ一覧</h1>
+<a href="./user_add.html">ユーザ追加</a><br>
+<br>
+
+<table border="1">
+  <tr>
+    <th>ユーザID
+    <th>めも
+    <th>
+    <th>
+
+  <tr>
+    <td>123456
+    <td>ほげほげさんのアカウントだよ
+<!--
+    <td><a href="">パスワード変更</a>
+-->
+    <td><form action="./user_list.html" method="post">
+          パスワード<br><input name="pw"><br>
+          <input type="hidden" name="id" value="">
+          <input type="hidden" name="csrf_token" value="">
+          <button type="submit">パスワード変更</button>
+        </form>
+    <td><a href="./user_list.html" onClick="return confirm('削除する？　マジで？')">削除</a>
+
+</table>
+
+</body>
+</html>

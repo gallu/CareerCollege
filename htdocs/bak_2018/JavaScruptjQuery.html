@@ -1,0 +1,49 @@
+<!--  JavaScruptjQuery.html  -->
+<html>
+<head>
+<title>JavaScript jQuery</title>
+</head>
+<body>
+<h1>JavaScript jQuery test</h1>
+<button id="btn">ボタン</button>
+<div class="area">
+ああああああああ<br>
+ああああああああ<br>
+ああああああああ<br>
+ああああああああ<br>
+</div>
+<div class="area">
+いいいいいいいい<br>
+いいいいいいいい<br>
+いいいいいいいい<br>
+いいいいいいいい<br>
+</div>
+
+<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+<script>
+//
+$(document).ready(function(){
+    //alert('test');
+    //console.log('log test');
+    $(document).on('click', '#btn', function() {
+	    alert('click');
+	});
+    $(document).on('click', '.area', function() {
+	    alert('area click');
+	});
+});
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

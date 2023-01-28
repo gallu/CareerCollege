@@ -1,0 +1,34 @@
+<!-- JavaScrupt.html -->
+<html>
+<head>
+<title>JavaScript</title>
+</head>
+<body>
+<h1>JavaScript test</h1>
+<button id="btn">ボタン</button>
+<div id="area">
+ああああああああ<br>
+ああああああああ<br>
+ああああああああ<br>
+ああああああああ<br>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    //
+    //alert('test');
+    //console.log('log test');
+	var btn = document.getElementById('btn');
+	btn.addEventListener('click', function() {
+	    alert('click');
+	}, false);
+    var area = document.getElementById('area');
+	area.addEventListener('click', function() {
+	    alert('area click');
+	}, false);
+	
+}, false);
+
+</script>
+</body>
+</html>

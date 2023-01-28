@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>Ajax test</title>
+</head>
+<body>
+<h1>Ajax test</h1>
+
+<button id="btn1">ボタン</button>
+
+<script type="text/javascript">
+/*
+function btn_click(eve) {
+  alert("click !!");
+}
+document.addEventListener("DOMContentLoaded",function(eve){
+  var btn = document.getElementById("btn1");
+  btn.addEventListener("click", btn_click);
+});
+*/
+document.addEventListener("DOMContentLoaded",function(eve){
+  var btn = document.getElementById("btn1");
+  btn.addEventListener("click", function(eve) {
+    alert("click !!");
+  });
+});
+</script>
+</body>
+</html>

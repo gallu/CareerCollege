@@ -1,0 +1,20 @@
+<!--  ajax_jquery.html  -->
+<html><body><button id="btn_ajax">ajax ボタン</button>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+    $(document).on('click', '#btn_ajax',  function(e){
+        $.ajax({
+            type: 'GET',
+            url: 'http://dev2.m-fr.net/furu/ajax.php',
+            //data: {},
+            //dataType: 'text'
+            dataType: 'json'
+        }).done(function( data ) {
+            //alert(data);
+            alert(data.message);
+        });
+    });
+});
+</script></body></html>
+

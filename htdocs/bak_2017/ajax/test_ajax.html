@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no, email=no, address=no">
+<title>Ajax test</title>
+</head>
+<body>
+<h1>Ajax test</h1>
+
+<button id="btn1">ボタン</button>
+
+<script type="text/javascript">
+function btn_click(eve) {
+  // 通信の定義をする
+  var req = new XMLHttpRequest();
+
+  // 「XMLHttpRequest の状態を保持する、プロパティreadyState の値」が変化したタイミングでcallされる関数の登録
+/*
+0: リクエストは初期化されていません.
+1: サーバとの接続が確立されました.
+2: リクエストを受け付けました.
+3. リクエストを処理しています.
+4: リクエストが終了し、レスポンスの準備が完了しました.
+*/
+  req.onreadystatechange = function() {
+    alert("onreadystatechange called");
+    alert("readyState is " + req.readyState);
+    alert("status is " + req.status);
+    if (4 == req.readyState) {
+      alert("req is " + req.responseText);
+      var data = JSON.parse(req.responseText);
+      alert("data is " + data["num_data"]);
+    }
+  };
+
+  // 実際に通信をする
+  var uri = "http://dev2.m-fr.net/furu/ajax/test.php";
+  req.open("GET", uri, true);
+  req.send();
+
+
+}
+document.addEventListener("DOMContentLoaded",function(eve){
+  var btn = document.getElementById("btn1");
+  btn.addEventListener("click", btn_click);
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+2016/5/31 ポイント
+・password_hash()とpassword_verify()
+・PDO：SQL-Injection対策
+・sessionとcookieの違い
+・sessionの使い方(session_start())
+・ログイン時にsession_regenerate_id()が必要

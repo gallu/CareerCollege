@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=1;">
+<title>カフェショップ会計</title>
+</head>
+
+<body>
+<h1>出金処理</h1>
+<form action="" method="post">
+どんな理由でお金が出て行ったの？
+<select>
+    <option>あれ
+    <option>それ
+    <option>どれ
+</select><br>
+いくら出て行ったの？<input name="money"><br>
+<input type="hidden" name="csrf_token" value="">
+<button type="submit">出金処理</button>
+</form>
+
+<h1>出金一覧</h1>
+<table border="1">
+  <tr>
+    <th>科目
+    <th>金額
+
+  <tr>
+    <td>あれ
+    <td>\10,000
+    <td><a href="./withdrawal_list.html" onClick="return confirm('削除？？？');">削除</a>
+
+</table>
+
+</body>
+</html>
