@@ -1,0 +1,33 @@
+-- SELECT * FROM テーブル名;
+SELECT  *  FROM  int_1 ;
+SELECT  *  FROM  users_1 ;
+SELECT  *  FROM  items ;
+SELECT  *  FROM  items \G
+SELECT  *  FROM  dq3 ;
+
+-- 
+SELECT  *  FROM  users_1 WHERE user_id = 3;
+SELECT  *  FROM  users_1 WHERE age = 19;
+
+SELECT  *  FROM  int_1;
+SELECT  *  FROM  int_1  WHERE  num  >  50  ;
+
+SELECT  *  FROM  users_1 WHERE age != 19;
+SELECT  *  FROM  users_1 WHERE age <> 19;
+
+SELECT  *  FROM  int_1  ORDER BY  num;
+SELECT  *  FROM  int_1  ORDER BY  num  DESC;
+
+SELECT  *  FROM  int_1  WHERE  num  >=  50  ORDER BY  num;
+
+INSERT テーブル名(カラム名, カラム名, ...) VALUES(値, 値, ....);
+
+INSERT users_1(name, age, created_at) VALUES('furusho', 53,  NOW());
+SELECT  *  FROM  users_1;
+
+SELECT NOW();
+SELECT 'AAA';
+SELECT 'AAA' = 'AAA';
+SELECT 'AAA' = 'BBB';
+SELECT 'AAA' = 'aaa';
+

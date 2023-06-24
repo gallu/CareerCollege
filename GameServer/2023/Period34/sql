@@ -1,0 +1,37 @@
+SELECT * FROM int_1;
+SELECT * FROM test1;
+SELECT * FROM users_1;
+
+SELECT * FROM items;
+SELECT * FROM items \G
+
+--------------------------
+SELECT * FROM users_1;
+SELECT * FROM users_1 WHERE user_id = 1;
+SELECT * FROM items WHERE item_id = 10;
+
+SELECT * FROM users_1 WHERE age = 20;
+SELECT * FROM users_1 WHERE age > 24;
+SELECT * FROM users_1 WHERE age >= 24;
+SELECT * FROM users_1 WHERE age != 20;
+SELECT * FROM users_1 WHERE age <> 20;
+
+--------------------------
+SELECT * FROM users_1 WHERE age >= 20;
+SELECT * FROM users_1 WHERE age >= 20 ORDER BY age, name;
+SELECT * FROM users_1 WHERE age >= 20 ORDER BY age DESC;
+
+----
+INSERT テーブル名(カラム名, カラム名, ...) VALUES(データ, データ, ...);
+INSERT users_1(name, age, created_at) VALUES('furusho', 52, NOW());
+
+SELECT * FROM users_1;
+
+SELECT NOW();
+SELECT 'AAA';
+SELECT 'AAA' = 'AAA';
+SELECT 'AAA' = 'AAB';
+SELECT 'AAA' = 'aaa';
+
+
+

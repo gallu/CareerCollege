@@ -1,0 +1,43 @@
+pwd
+ls
+
+cd
+mkdir BBS2023
+ls
+
+cd BBS2023
+mkdir public
+ls
+
+cd public
+pwd
+
+/home/アカウント名/BBS2023/public
+
+cd
+pwd
+
+cd wwwroot
+pwd
+
+ln  -s  /home/アカウント名/BBS2023/public  BBS
+ls
+
+
+
+cd
+cd BBS2023
+
+cd ~/BBS2023
+
+composer.phar  require  "twig/twig"
+
+php  twig_test.php
+
+cd vendor
+ls
+
+mkdir templates
+
+
+

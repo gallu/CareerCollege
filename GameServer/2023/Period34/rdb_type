@@ -1,0 +1,50 @@
+数値データ型
+    整数
+        SIGNED
+        UNSIGNED
+            TINYINT 127 / 255
+            (SMALLINT)
+            (MEDIUMINT)
+            INT     2147483647
+            BIGINT
+    実数
+        浮動小数点数
+            FLOAT
+            DOUBLE
+        固定小数点数
+            DECIMAL、NUMERIC
+
+日時データ型
+    TIME
+    DATE
+    TIMESTAMP   '1970-01-01 00:00:01' UTC から '2038-01-19 03:14:07' UTC
+    DATETIME
+
+文字列データ型
+    CHAR
+    VARCHAR
+    TEXT
+    BINARY
+    VARBINARY
+    BLOB
+
+----------------------
+PK  PRIMARY KEY 主キー (id, ***_id
+AUTO_INCREMENT  自動採番機能
+
+NULL　ヤバい
+NOT NULL
+
+
+A = 'a' 
+B = 'b'
+C = NULL
+
+（A = 'a') and (B = 'b') true
+（A = 'a') and C         NULL
+(A = 'a') or  C         true
+C         or  (A = 'a') NULL
+（A = 'b') and C         false
+
+
+

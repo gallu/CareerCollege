@@ -1,0 +1,35 @@
+数値データ型
+    整数
+        TINYINT　（UNSIGNED）     -128～127(0～255）
+        (SMALLINT）
+        (MEDIUMINT）
+        INT     -21億～21億(0～42億）
+        BIGINT  (-9,223,372,036,854,775,807 ～ 9,223,372,036,854,775,807
+    実数
+        浮動小数点数
+            FLOAT
+            DOUBLE
+        固定小数点数
+            DECIMAL、NUMERIC
+
+日時データ型
+    DATE
+    TIME
+    （TIMESTAMP）
+    DATETIME
+
+文字列データ型
+    CHAR
+    VARCHAR
+    TEXT
+    BINARY
+    VARBINARY
+    BLOB
+
+PK  PRIMARY KEY 主キー     (id, ****_id
+AUTO_INCREMENT  自動採番
+INDEX   検索に便利
+UNIQUE  
+FK      外部キー制約
+COMMENT 
+NULL

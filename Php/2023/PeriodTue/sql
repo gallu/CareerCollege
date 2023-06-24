@@ -1,0 +1,40 @@
+Create
+Read
+Update
+Delete
+
+-- SELECT * FROM テーブル名;
+SELECT  *  FROM  int_1 ;
+SELECT  *  FROM  users_1 ;
+SELECT  *  FROM  items ;
+SELECT  *  FROM  items \G
+SELECT  *  FROM  dq3 ;
+SELECT  *  FROM  dq3 \G
+
+-- 
+SELECT  *  FROM  users_1  WHERE  user_id = 1;
+SELECT  *  FROM  users_1  WHERE  age = 20;
+SELECT  *  FROM  users_1  WHERE  age = 999;
+SELECT  *  FROM  users_1  WHERE  age >= 20;
+SELECT  *  FROM  users_1  WHERE  age > 20;
+SELECT  *  FROM  users_1  WHERE  age != 20;
+SELECT  *  FROM  users_1  WHERE  age <> 20;
+
+SELECT  *  FROM  int_1 ;
+SELECT  *  FROM  int_1  ORDER BY num;
+SELECT  *  FROM  int_1  ORDER BY num ASC;
+SELECT  *  FROM  int_1  ORDER BY num DESC;
+
+SELECT  *  FROM  users_1  WHERE  age > 20  ORDER BY name;
+
+-- 
+INSERT テーブル名(カラム名, カラム名, ...) VALUES(値, 値, ....);
+INSERT users_1(name, age, created_at) VALUES('gallu', 123,  NOW());
+SELECT  *  FROM  users_1;
+
+SELECT 'AAA';
+SELECT NOW();
+SELECT 'AAA' = 'AAA';
+SELECT 'BBB' = 'AAA';
+SELECT 'AAA' = 'aaa';
+SELECT 'AAA' = 'aaa    ';

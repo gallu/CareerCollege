@@ -1,0 +1,50 @@
+数値データ型
+    整数
+        符号付き
+            TINYINT -128～127
+            （SMALLINT)
+            （MEDIUMINT)
+            INT     -2147483648 ～ 2147483647
+            BIGINT  
+        符号無し
+            TINYINT 0～255
+            （SMALLINT)
+            （MEDIUMINT)
+            INT     0～4294967295
+            BIGINT  18446744073709551616 
+    実数
+        浮動小数点数
+            FLOAT
+            DOUBLE
+        固定小数点数
+            DECIMAL、NUMERIC
+
+日時データ型
+    DATE    '1000-01-01' から '9999-12-31' 
+    TIME    '-838:59:59' から '838:59:59'
+    TIMESTAMP   '1970-01-01 00:00:01' UTC から '2038-01-19 03:14:07' UTC
+    DATETIME    '1000-01-01 00:00:00' から '9999-12-31 23:59:59'
+
+文字列データ型
+    CHAR
+    VARCHAR
+    TEXT
+    BINAY
+    VARBINAY
+    BLOB
+
+
+CREATE TABLE `users_1` (
+  `user_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `age` int DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+
+主キー
+AUTO_INCREMENT
+INDEX
+UNIQUE  一意
+COMMENT
+NULL
