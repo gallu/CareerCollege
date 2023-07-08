@@ -5,12 +5,38 @@ ob_start();
 require_once  __DIR__ . "/db.php";
 
 // データを取得
-$name = $_POST["name"];
-$age = $_POST["age"];
+$name = (string) ($_POST["name"] ?? "");
+$age = (string) ($_POST["age"] ?? "");
 var_dump($name, $age);
 
 // validation
+$error = [];
+// name 必須、２０文字以内であること
+if ('' === $name) {
+    $error[] = "nameが未入力です";
+} else {
+    if (20 < mb_strlen($name)) {
+        $error[] = "nameが長すぎます。20文字以内でヨロ";
+    }
+}
+// age 必須、数値であること、０以上であること
+if ('' === $age) {
+    $error[] = "年齢が未入力です";
+} else {
+    $age = filter_var($age, FILTER_VALIDATE_INT);
+    if (false === $age) {
+        $error[] = "年齢は数値で入力してください";
+    }
+    if (0 > $age) {
+        $error[] = "年齢は正の値を入力してください";
+    }
+}
 
+// エラーがあったら処理中断
+if ([] !== $error) {
+    var_dump($error);
+    exit;
+}
 
 
 // プリペアドステートメントを作成する

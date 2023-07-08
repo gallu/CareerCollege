@@ -29,7 +29,71 @@ var_dump(filter_var(123, FILTER_VALIDATE_INT));
 var_dump(filter_var("123", FILTER_VALIDATE_INT));
 var_dump(filter_var("2e3", FILTER_VALIDATE_INT));
 var_dump(filter_var("abc", FILTER_VALIDATE_INT));
+echo "<br>";
 
 // 住所(と半角全角)
+$base = "Ａｂｃあイウ１２３"; // 全部全角で
+$s = mb_convert_kana($base, "acHV");
+var_dump($base, $s);
+echo "<br>";
+
 // 郵便番号
+// - 実在するか？: DB使え
+// - フォーマットがvalidか？
+$pattern = "/\A[0-9]{3}[\- ]{0,1}[0-9]{4}\z/"; // 「どんなフォーマット」をチェックしたいか？
+$subject = "123-4567"; // チェックする文字列
+$r = preg_match($pattern, $subject, $matches);
+var_dump($r, $matches);
+echo "<br>";
+
 // email
+// - 実在するか？: 運用でどうにかする
+// - フォーマットがvalidか？
+
+// ダメなケース
+function v(string $text): bool {
+    if (preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $text)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+//
+$email = "test@test.com";
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+$email = "testtest.com";
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+// 拡張メールアドレス
+$email = "test+abc@test.com";
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+$email = "test-abc@test.com";
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+//
+$email = "test@[1.2.3.4]";
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+//
+$email = "test.@test.com";
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+$email = "te..st@test.com";
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+$email = '"te..st"@test.com';
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
+
+$email = '"te@st"@test.com';
+$is_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
+var_dump($email, $is_valid, v($email));
