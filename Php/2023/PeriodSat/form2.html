@@ -1,0 +1,16 @@
+<!doctype html><!-- form2.html -->
+<form action="form2.php" method="POST">
+<input type="hidden" name="h_data" value="h_value">
+名前:<input name="name"><br>
+年齢:<input name="age" type="number"><br>
+パスワード: <input type="password" name="pw"><br>
+好きな方: <label><input type="radio" name="favorite" value="1">きのこの山<label>
+         <label><input type="radio" name="favorite" value="2">タケノコの里<label>
+         <br>
+趣味: <label><input type="checkbox" name="hobby[]" value="1">読書</label>
+    <label><input type="checkbox" name="hobby[]" value="2">音楽鑑賞</label>
+    <label><input type="checkbox" name="hobby[]" value="3">写真</label>
+    <br>
+その他: <textarea name="memo"></textarea><br>
+<button>送信</button>
+</form>

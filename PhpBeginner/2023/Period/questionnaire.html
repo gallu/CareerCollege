@@ -1,0 +1,22 @@
+<!doctype html><!-- questionnaire.html -->
+<h1>アンケート</h1>
+※セキュアじゃないので「漏れると困る」ようなものが扱える仕組みになってませんのでご注意ください<br>
+<form action="questionnaire.php" method="POST">
+    好きなものを１つ選んでください<br>
+    <label><input type="radio" name="like" value="犬">犬</label><br>
+    <label><input type="radio" name="like" value="猫">猫</label><br>
+    <label><input type="radio" name="like" value="爬虫類">爬虫類</label><br>
+    <label><input type="radio" name="like" value="熱帯魚">熱帯魚</label><br>
+    <label><input type="radio" name="like" value="植物">植物</label><br>
+    あなたの年齢を教えてください<br>
+    <select name="age">
+        <option value="-10">ローティーン(十代前半まで）
+        <option value="10">ハイティーン(十代後半）
+        <option value="20">二十代
+        <option value="30">三十代
+        <option value="40">四十代
+        <option value="50">五十代
+        <option value="60">六十代以降
+    </select><br>
+    <button>回答する</button>
+</form>

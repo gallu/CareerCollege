@@ -1,0 +1,18 @@
+<!doctype html><!-- form2.html -->
+<form action="form2.php" method="post">
+<input type="hidden" name="hide" value=false>
+  文字列: <input type="text" name="str" ><br>
+  パスワード: <input type="password" name="pw" ><br>
+  選択: <input type="radio" name="race" value="1">人間
+        <input type="radio" name="race" value="2">エルフ
+        <input type="radio" name="race" value="3">ドワーフ
+        <input type="radio" name="race" value="4">ホビット
+        <br>
+  職業: <input type="checkbox" name="job[]" value="1">戦士
+    　　　<input type="checkbox" name="job[]" value="2">僧侶
+    　　　<input type="checkbox" name="job[]" value="3">魔法使い
+    　　　<input type="checkbox" name="job[]" value="4">盗賊
+        <br>
+  <br>
+  <button>登録</button>
+</form>
