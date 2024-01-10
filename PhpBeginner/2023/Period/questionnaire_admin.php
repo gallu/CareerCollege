@@ -51,7 +51,7 @@ function getQuestionnaireData() {
 // var_dump($_POST);
 $id = (string) ($_POST["id"] ?? "");
 $pw = (string) ($_POST["pw"] ?? "");
-var_dump($id, $pw);
+// var_dump($id, $pw);
 
 // validate
 $r = validate($id, $pw);
@@ -69,7 +69,34 @@ if (false === $r) {
 
 //　アンケートデータの取得
 $data = getQuestionnaireData();
-var_dump($data);
+// var_dump($data);
 
-XXX データをいろいろと集計する
+// データをいろいろと集計する
+$datetime = [];
+$type = [];
+$age = [];
+foreach ($data as $datum) {
+    // var_dump($datum);
+    // var_dump($datum[0]);
+    // アンケート日付
+    $t = strtotime($datum[0]);
+    $d = date("Y-m-d", $t);
+    // $d = date("Y-m-d", strtotime($datum[0]));
+    $datetime[$d] ??= 0;
+    $datetime[$d] += 1;
 
+    // ペット種類
+    $type[$datum[1]] ??= 0; // $type[$datum[1]] = $type[$datum[1]] ?? 0;
+    $type[$datum[1]] += 1;
+    //　年代
+    $age[$datum[2]] ??= 0;
+    $age[$datum[2]] += 1;
+}
+// srot
+ksort($datetime);
+ksort($type);
+ksort($age);
+//
+var_dump($datetime);
+var_dump($type);
+var_dump($age);

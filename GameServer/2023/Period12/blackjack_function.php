@@ -1,5 +1,35 @@
 <?php  // blackjack_function.php
 
+define("WIN", "win");
+define("LOSE", "lose");
+define("DRAW", "draw");
+
+/**
+ * 勝敗の判定
+ */
+function judge($total, $p_total) {
+    if (21 < $p_total) {
+        // 親がバーストしてたら問答無用で子の勝利
+        $outcome = WIN;
+    } elseif (21 < $total) {
+        // 子がバーストしてたら当然負け
+        $outcome = LOSE;
+    } else {
+        // それ以外なら数値勝負
+        if ($total > $p_total) {
+            // win
+            $outcome = WIN;
+        } elseif ($total === $p_total) {
+            // draw
+            $outcome = DRAW;
+        } else {
+            // lose
+            $outcome = LOSE;
+        }
+    }
+    return $outcome;
+}
+
 /**
  * (手札の)合計の計算
  */

@@ -5,6 +5,6 @@ session_start();
 require_once __DIR__ . "/Authorization.php";
 
 // ログアウトさせる
-(new Authorization())->offLogin($r);
+(new Authorization())->offLogin();
 
 header("Location: ./auth_login.html");

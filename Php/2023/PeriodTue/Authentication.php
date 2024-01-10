@@ -6,6 +6,9 @@ require_once __DIR__ . '/dbh.php';
  * 認証処理をつかさどるクラス
  */
 class Authentication {
+    public const ERROR_NUM = 5; // ログインロックがかかるまでのパスワードエラー回数
+    public const LOCK_TIME = 120; // ログインロックの時間(単位:秒)
+
     // ログイン
     // 戻り値はユーザ情報(無名クラス)
     public function login(string $email, string $pw): object|null {
@@ -24,13 +27,53 @@ class Authentication {
             return null;
         }
 
+        // ログインロックの確認
+        if (null !== $datum["lock_time"]) {
+            $now = time();
+            $lock_time = strtotime($datum["lock_time"]);
+// var_dump($now, $lock_time);
+// var_dump($datum["lock_time"]);
+// var_dump( strtotime($datum["lock_time"]) );
+// var_dump( time() );
+
+            // まだロック中か？
+            if ($now < $lock_time) {
+                // ロック中なのでまだログインさせない
+                var_dump("locking");
+                return null;
+            }
+            // else
+            // ログインロックを外す
+            // $datum["error_count"] = 0; // XXX 厳しい目にしておく
+            $datum["lock_time"] = null;
+            $this->updateUser($datum);
+        }
+
         // パスワードが正しいこと
         $r = password_verify($pw, $datum["password"]);
         if (false === $r) {
+            // パスワード間違えた回数 ++;
+            $datum["error_count"] ++;
+
+            // パスワード間違えた回数 >= 一定回数以上
+            if ($datum["error_count"] >= self::ERROR_NUM) {
+                $datum["lock_time"] = date(DATE_ATOM, time() + self::LOCK_TIME);
+            }
+
+            // update(user);
+            $this->updateUser($datum);
+
             // パスワードが違うよ？
             return null;
         }
-        
+
+        // [memo] ここまできたら認証OK
+
+        // エラーカウントをリセット
+        $datum["error_count"] = 0;
+        $datum["lock_time"] = null;
+        $this->updateUser($datum);
+
         // OKだったらユーザ情報を返す
         // XXX readonlyは使えるのがPHP 8.1以降
         return new class($datum) {
@@ -45,14 +88,28 @@ class Authentication {
             }
         };
     }
+
+    //
+    protected function updateUser($datum) {
+        $dbh = DbHandle::get();
+
+        $sql = 'UPDATE admin_users
+                   SET error_count=:error_count
+                     , lock_time=:lock_time
+                     , updated_at=:updated_at
+                 WHERE email=:email;';
+        $pre = $dbh->prepare($sql);
+        //
+        $pre->bindValue(":error_count", $datum["error_count"], PDO::PARAM_INT);
+        $pre->bindValue(":lock_time", $datum["lock_time"]);
+        $pre->bindValue(":updated_at", date(DATE_ATOM), PDO::PARAM_STR);
+        $pre->bindValue(":email", $datum["email"], PDO::PARAM_STR);
+        $r = $pre->execute();
+    }
+
 }
 
 /*
-    public function login(string $email, string $pw): object|null {
-        // emailが存在していること
-        if (NG) {
-            return null;
-        }
         
         // ログインロックの確認
         if (ログインロック中) {
@@ -65,22 +122,5 @@ class Authentication {
             }
         }
 
-        // パスワードが正しいこと
-        if (NG) {
-            パスワード間違えた回数 ++;
-            // update(user);
-            if (パスワード間違えた回数 >= 一定回数以上) {
-                ログインロック
-                ユーザにemail
-                // update(user)
-            }
-            update(user);
-            return null;
-        }
         
-        // OKだったらユーザ情報を返す
-        パスワード間違えた回数をリセットして update(user)
-        return user;
-    }
-}
 */
