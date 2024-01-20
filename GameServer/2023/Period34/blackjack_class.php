@@ -104,11 +104,26 @@ class Hand {
         $_SESSION[self::SKEY] = [];
     }
 
-    // XXX JQKとAの計算ロジック　＋　UnitTest
+    // 計算ロジック
     public function calculation(): int {
+        return $this->calculationMain($this->get());
+    }
+    public function calculationMain(array $cards): int {
         $total = 0;
-        foreach($this->get() as $h) {
-            $total += $h->number;
+        $ace_flg = false;
+        foreach($cards as $h) {
+            if (11 <= $h->number) {
+                $total += 10;
+            } elseif (1 === $h->number) {
+                $ace_flg = true;
+                $total += 1;
+            } else {
+                $total += $h->number;
+            }
+        }
+        // Aがあって11とカウントしたいケースの判定
+        if ( (true === $ace_flg)&(21 >= ($total + 10)) ) {
+            $total += 10;
         }
         return $total;
     }
