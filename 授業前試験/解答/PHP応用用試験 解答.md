@@ -9,12 +9,12 @@
 declare(strict_types=1);
 /*
 - 関数名は func_1
-- 第一引数は「int または float型」で、変数名 num
+- 第一引数は「int型」で、変数名 num
 - 第二引数は「null または string型」で、変数名 name
 - 第三引数は、bool 型で、変数名 flg。デフォルト値はfalse
 - 戻り値の型は array
 */
-function func_1(int|float $num, ?string $name, bool $flg = false): array {
+function func_1(int $num, ?string $name, bool $flg = false): array {
     // - 第一引数、第二引数、第三引数の値をそれぞれ要素にして、配列を作成
     $arr = [$num, $name, $flg];
 
@@ -23,7 +23,7 @@ function func_1(int|float $num, ?string $name, bool $flg = false): array {
 }
 
 // 上述で作った関数に適当な引数を与えて実行し
-$r = func_1(3.14, 'name');
+$r = func_1(3, 'name');
 
 // 結果を var_dump() で出力しなさい。  
 var_dump($r);
@@ -34,7 +34,7 @@ var_dump($r);
 ```
 array(3) {
   [0]=>
-  float(3.14)
+  int(3)
   [1]=>
   string(4) "name"
   [2]=>
@@ -44,8 +44,7 @@ array(3) {
 
 ### 解説
 
-「関数の作成」「引数と戻り値の型指定」「型指定のunion(複数の型指定)」「デフォルト値を持つ引数」といった、関数を作成する上で基本となる要素が詰まっています。  
-第二引数の型指定は `?string` としていますが、これは `string|null` でもOKです。  
+「関数の作成」「引数と戻り値の型指定」「デフォルト値を持つ引数」といった、関数を作成する上で基本となる要素が詰まっています。  
 また、関数をcallする時、サンプルでは「デフォルト値を持つ引数の値を省略」していますが、これについても「省略」「明示的に渡す」のどちらでもOKです。  
 関数は、次にやる「クラスのメソッド」にたどり着くための重要な技術なので、不明点がある時はしっかりと復習しておきましょう。  
 `declare(strict_types=1);` は「型指定をより厳格に適用する」ためのものです。なくても「試験における採点のマイナス」はない、としますが、実務では「必須」である事も多いので、できるだけ意識して書くようにしましょう。  
@@ -105,20 +104,17 @@ func_2(3);
 <?php
 declare(strict_types=1);
 /*
-- 第一引数は「int または float型」で、変数名 num
-- 第二引数は「int または float型」で、変数名 val
-- 戻り値は「int または float型」
+- 第一引数は「int型」で、変数名 num
+- 第二引数は「int型」で、変数名 val
+- 戻り値は「int型」
 - 処理は以下の通り
     - num と val をかけ算して、その結果をreturn
 */
-$fn = function(int|float $num, int|float $val): int|float {
+$fn = function(int $num, int $val): int {
     return $num * $val;
 };
 //
 $r = $fn(2, 3);
-var_dump($r);
-
-$r = $fn(3.14, 1.4142);
 var_dump($r);
 ```
 
@@ -126,7 +122,6 @@ var_dump($r);
 
 ```
 int(6)
-float(4.440588)
 ```
 
 ### 解説
@@ -192,20 +187,9 @@ class Klass_2 {
             // - 引数の値が 123 なら、例外をthrowしなさい。例外のクラスは RuntimeException、メッセージは "value is not 123." としなさい
             throw new RuntimeException('value is not 123.');
         }
-        // - 引数で与えられた値を、プロパティ numに代入(コンストラクタのプロモーションを使うのも可。その時は「引数の変数名 i」は無視してよい)
+        // - 引数で与えられた値を、プロパティ numに代入
         $this->num = $i;
     }
-    /*
-    // - 引数で与えられた値を、プロパティ numに代入(コンストラクタのプロモーションを使うのも可。その時は「引数の変数名 i」は無視してよい)
-    public function __construct(
-        private int $num,
-    ) {
-        if (123 === $this->num) {
-            // - 引数の値が 123 なら、例外をthrowしなさい。例外のクラスは RuntimeException、メッセージは "value is not 123." としなさい
-            throw new RuntimeException('value is not 123.');
-        }
-    }
-    */
 
     // - メソッドを作成
     // - メソッド名 getNum()
@@ -240,8 +224,6 @@ value is not 123.
 ### 解説
 
 「コンストラクタの作成」「引数を持つコンストラクタに値を渡す方法」「プロパティへの値の設定」「例外のthrowとcatch」いずれも、実務では極めて高頻度で出てくる技術になります。不安がある時は、しっかりと復習をしておきましょう。  
-「コンストラクタのプロモーション」は、PHP8から出てきた技術です。カンファレンスやサンプルコードなどでの出現頻度は増えてきているので、「出てきたら読める」くらいにはなれておくとよいでしょう。  
-サンプルコードでは、コメントアウトでプロモーションのコードも書いています。動かすときは「プロパティの設定も併せてコメントアウトする」事を忘れないようにしましょう。  
 
 ## 継承
 
@@ -260,7 +242,7 @@ class Klass_3 {
     // - コンストラクタを作成
     // - 第一引数は int 型で、変数名 i
     public function __construct(int $i) {
-        // - 引数で与えられた値を、プロパティ numに代入(コンストラクタのプロモーションを使うのも可)
+        // - 引数で与えられた値を、プロパティ numに代入
         $this->num = $i;
     }
 
@@ -348,7 +330,7 @@ class Klass_4 implements Klass_4_Interface {
             // - 引数の値が 123 なら、例外をthrowしなさい。例外のクラスは RuntimeException、メッセージは "value is not 123." としなさい
             throw new RuntimeException('value is not 123.');
         }
-        // - 引数で与えられた値を、プロパティ numに代入(コンストラクタのプロモーションを使うのも可)
+        // - 引数で与えられた値を、プロパティ numに代入
         $this->num = $i;
     }
 
