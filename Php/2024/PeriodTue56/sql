@@ -1,0 +1,333 @@
+SELECT 1 ;
+SELECT 'abc' ;
+SELECT 1+2 ;
+SELECT NOW();
+
+SELECT * FROM categories;
+SELECT * FROM items;
+SELECT * FROM items \G
+SELECT * FROM tags;
+
+SELECT * FROM items WHERE item_id = 10;
+SELECT * FROM items WHERE item_id = 10 \G
+
+SELECT * FROM items WHERE item_name = 'ピザ';
+SELECT * FROM items WHERE item_name = 'ピザ' \G
+
+SELECT * FROM items WHERE price = 80;
+SELECT * FROM items WHERE price = 80 \G
+
+SELECT * FROM items WHERE price = 99999;
+
+SELECT * FROM items WHERE price > 500;
+SELECT * FROM items WHERE price > 500 \G
+SELECT * FROM items WHERE price >= 500;
+SELECT * FROM items WHERE price >= 500 \G
+
+SELECT * FROM items WHERE price >= 500 AND price <= 1000;
+SELECT * FROM items WHERE price >= 500 AND price <= 1000 \G
+
+SELECT * FROM items WHERE price BETWEEN 500 AND 1000;
+
+SELECT * FROM items WHERE release_at >= '2020-01-01';
+SELECT * FROM items WHERE release_at >= '2020-01-01' \G
+
+SELECT * FROM users;
+SELECT * FROM users \G
+
+SELECT 'a' = 'a';
+SELECT 'a' = 'b';
+SELECT 'a' = 'A';
+SELECT 'a' = 'A';
+
+mysql  -u  ec_sample_user  -p  --skip-binary-as-hex  ec_sample
+ec_sample_pass
+
+SELECT * FROM users \G
+
+SELECT * FROM users WHERE user_name = '黒田';
+SELECT * FROM users WHERE user_name LIKE '黒田%';
+SELECT * FROM users WHERE user_name LIKE '黒田%' \G
+
+SELECT * FROM users WHERE user_name LIKE '%田%' \G
+
+-- 
+SELECT * FROM items;
+SELECT * FROM items LIMIT 10 OFFSET 0;
+
+SELECT * FROM items ORDER BY price \G
+SELECT * FROM items ORDER BY release_at \G
+
+SELECT * FROM items ORDER BY price DESC \G
+SELECT * FROM items ORDER BY release_at DESC \G
+
+SELECT * FROM items ORDER BY price LIMIT 10 OFFSET 0 \G
+
+SELECT *
+  FROM items
+ ORDER BY price
+ LIMIT 10 OFFSET 0
+\G
+
+SELECT *
+  FROM items
+ WHERE price BETWEEN 500 AND 1000 -- 営業からの依頼 URL
+ ORDER BY price
+ LIMIT 10 OFFSET 0
+\G
+
+-- 一行コメント
+/* 複数行
+コメント */
+
+SELECT * FROM categories;
+SELECT * FROM items WHERE category_id = 1;
+SELECT * FROM items WHERE category_id = 1 \G
+
+SELECT SUM(price) FROM items WHERE category_id = 1;
+SELECT SUM(price) FROM items WHERE category_id = 2;
+
+SELECT AVG(price) FROM items WHERE category_id = 1;
+SELECT AVG(price) FROM items WHERE category_id = 2;
+
+SELECT STDDEV_POP(price) FROM items WHERE category_id = 1;
+SELECT STDDEV_POP(price) FROM items WHERE category_id = 2;
+
+SHOW TABLES;
+
+SELECT * FROM items ORDER BY price LIMIT 1 OFFSET 0 \G
+SELECT * FROM categories WHERE category_id = 2;
+
+SELECT *
+  FROM items
+       LEFT JOIN categories ON items.category_id = categories.category_id
+ ORDER BY price
+ LIMIT 1 OFFSET 0
+\G
+
+SELECT *
+  FROM items
+       LEFT JOIN categories USING(category_id)
+ ORDER BY price
+ LIMIT 1 OFFSET 0
+\G
+
+SELECT items.*
+       , categories.category_name
+  FROM items
+       LEFT JOIN categories USING(category_id)
+ ORDER BY price
+ LIMIT 1 OFFSET 0
+\G
+
+-- タグ
+SELECT * FROM tags;
+SELECT * FROM items_tags; -- 中間テーブル
+
+-- セール品の一覧
+SELECT items_tags.*
+  FROM items_tags
+ WHERE tag_id = 1
+\G
+
+SELECT items_tags.*
+       , tags.tag_name
+  FROM items_tags
+       LEFT JOIN tags USING(tag_id)
+ WHERE tag_id = 1
+\G
+
+SELECT items_tags.*
+       , tags.tag_name
+       , items.*
+  FROM items_tags
+       LEFT JOIN tags USING(tag_id)
+       LEFT JOIN items USING(item_id)
+ WHERE tag_id = 1
+\G
+
+SELECT 
+       tags.tag_name
+       , items.*
+  FROM items_tags
+       LEFT JOIN tags USING(tag_id)
+       LEFT JOIN items USING(item_id)
+ WHERE tag_id = 1
+\G
+
+SELECT 
+       tags.tag_name
+       , items.*
+       , categories.category_name
+  FROM items_tags
+       LEFT JOIN tags USING(tag_id)
+       LEFT JOIN items USING(item_id)
+       LEFT JOIN categories USING(category_id)
+ WHERE tag_id = 1
+\G
+
+
+SELECT * FROM sales_slips \G
+SELECT * FROM sales_slip_details LIMIT 1 \G
+
+SELECT * FROM sales_slips WHERE sales_slip_id = 1 \G
+SELECT * FROM sales_slip_details WHERE sales_slip_id = 1 \G
+
+SELECT *
+  FROM sales_slips
+       LEFT JOIN sales_slip_details USING(sales_slip_id)
+ WHERE sales_slip_id = 1
+\G
+
+SELECT total
+       , SUM(sales_slip_details.price * sales_slip_details.sale_number) as sum
+  FROM sales_slips
+       LEFT JOIN sales_slip_details USING(sales_slip_id)
+ WHERE sales_slip_id = 1
+;
+
+SELECT item_name, category_id FROM items;
+
+SELECT category_id FROM items GROUP BY category_id;
+
+SELECT category_id, count(*) FROM items GROUP BY category_id;
+
+SELECT item_name, count(*) FROM items GROUP BY item_name;
+
+SELECT email FROM users GROUP BY email;
+
+SELECT item_name, count(*) FROM items GROUP BY item_name;
+
+INSERT items SET item_name='りんご', category_id=3, price=999, release_at=NOW();
+
+SELECT item_name, count(*) FROM items GROUP BY item_name HAVING count(*) > 1;
+
+
+SELECT * FROM items;
+SELECT * FROM categories;
+
+SELECT *
+  FROM items.items
+       LEFT JOIN categories USING(category_id)
+\G
+
+SELECT items.*
+  FROM items
+       LEFT JOIN categories USING(category_id)
+ WHERE categories.category_name = 'くだもの'
+\G
+
+
+SELECT * FROM categories WHERE category_name = 'くだもの';
+SELECT category_id FROM categories WHERE category_name = 'くだもの';
+
+SELECT *
+  FROM items
+ WHERE category_id IN (
+           SELECT category_id FROM categories WHERE category_name = 'くだもの'
+       )
+;
+
+-- 
+INSERT INTO テーブル名(カラム名, カラム名, ...) VALUES(値, 値, 値, ...);
+INSERT テーブル名 SET カラム名=値,  カラム名=値,  カラム名=値, ... ;
+
+
+INSERT INTO items(item_name, category_id, price, release_at)
+   VALUES('商品名', 1, 123, '2020-1-1');
+
+INSERT items SET item_name='商品名', category_id=2, price=456, release_at=NOW();
+
+  `item_name` varchar(128) NOT NULL COMMENT '商品名',
+  `category_id` bigint unsigned NOT NULL COMMENT 'カテゴリID',
+  `price` int unsigned NOT NULL COMMENT '価格',
+  `release_at` datetime DEFAULT NULL COMMENT '発売開始日(NULLなら発売日未定)',
+
+-- 
+SELECT item_id, item_name FROM items ;
+SELECT item_id, item_name FROM items WHERE item_id = 31;
+
+UPDATE items SET price=111 WHERE item_id = 31;
+UPDATE items SET price=price + 100 WHERE item_id = 31;
+
+-- 
+SELECT item_id, item_name FROM items WHERE item_id = 31;
+DELETE FROM items WHERE item_id = 31;
+
+INSERT INTO items(item_name, category_id, price, release_at)
+   VALUES('商品名', 1, 123, '2020-1-1'),
+       ('商品名', 1, 123, '2020-1-1'),
+       ('商品名', 1, 123, '2020-1-1'),
+       ('商品名', 1, 123, '2020-1-1');
+
+UPSERT(UPDATE + INSERT)
+
+-- 
+INSERT INTO table1(col1, col2) 
+    VALUES(..., ...)
+-- 
+    ON DUPLICATE KEY UPDATE 
+      col1=table2.col1,
+      col2=table2.col2;
+
+-- 
+BEGIN;
+XXXXXX
+COMMIT; / ROLLBACK;
+
+BEGIN;
+SELECT * FROM items;
+COMMIT;
+
+
+BEGIN;
+    SELECT item_id, item_name, price FROM items WHERE item_id = 31;
+        UPDATE items SET price=price+100 WHERE item_id = 31;
+    SELECT item_id, item_name, price FROM items WHERE item_id = 31;
+ROLLBACK;
+SELECT item_id, item_name, price FROM items WHERE item_id = 31;
+
+-- 
+主キー(PRIMARY KEY)
+    自然キー
+    人工キー
+
+UNIQUE
+
+INDEX
+
+FOREIGN KEY(外部キー制約)
+
+NULL
+
+------------------------
+数値
+    整数
+        UNSIGNED
+            TINY INT    １
+            INT         ４   4294967295
+            BIGINT      ８   18446744073709551615
+    小数点数
+        浮動小数点数
+            FLOAT   ４
+            DOUBLE  ８
+        固定小数点数
+            DECIMAL
+            NUMERIC
+
+文字
+    CHAR
+    VARCHAR
+    TEXT
+        TINYTEXT
+        TEXT
+        LONGTEXT
+    VARBINARY
+
+日付
+    DATE
+    TIME
+    TIMESTAMP   '1970-01-01 00:00:01' UTC から '2038-01-19 03:14:07' UTC の範囲
+    DATETIME    '1000-01-01 00:00:00' から '9999-12-31 23:59:59'
+
+
