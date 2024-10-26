@@ -1,0 +1,18 @@
+select 1;
+select now();
+SELECT NOW();
+
+select * from テーブル名;
+select * from categories;
+
+select * from items;
+select * from items \G
+
+select  category_id, category_name  from  categories;
+
+select item_id, item_name, category_id, price from items;
+
+SELECT item_id, item_name, category_id, price FROM items WHERE item_id=1;
+SELECT item_id, item_name, category_id, price FROM items WHERE category_id=1;
+
+
