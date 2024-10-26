@@ -185,4 +185,5 @@ SELECT * FROM items WHERE item_id=3;
 /*
 商品テーブル( items )の、カテゴリID(category_id)が3のレコードを表示するSQLを書きなさい
  */
+SELECT * FROM items WHERE category_id=3;
 
