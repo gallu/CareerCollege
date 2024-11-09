@@ -16,7 +16,7 @@ function dice($bs) {
     for ($i = 0; $i < $times; ++$i) {
         // 指定されたn面のサイコロを振る
         $r = random_int(1, $dice_type);
-        echo "{$r}, ";
+        // echo "{$r}, ";
         // 合算
         $total += $r;
     }
@@ -24,10 +24,11 @@ function dice($bs) {
     //
     return $total;
 }
-
+/*
 $r = dice("2d6");
 var_dump($r);
 echo "<br>";
 $r = dice("4d4");
 var_dump($r);
 echo "<br>";
+*/

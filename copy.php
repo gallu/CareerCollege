@@ -36,6 +36,10 @@ foreach($param[$year] as $key => $val) {
         echo $cmd;
         $cmd = "cp {$fromo_path}/*sql* {$to_path} \n";
         echo $cmd;
+        $cmd = "cp {$fromo_path}/*xlsx {$to_path} \n";
+        echo $cmd;
+        $cmd = "cp {$fromo_path}/*csv {$to_path} \n";
+        echo $cmd;
     }
 }
 

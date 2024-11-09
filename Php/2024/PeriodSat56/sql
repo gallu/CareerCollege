@@ -187,3 +187,163 @@ SELECT * FROM items WHERE item_id=3;
  */
 SELECT * FROM items WHERE category_id=3;
 
+/*
+商品テーブル( items )の、値段(price)が、「200円以上、500円以下」のレコードを表示するSQLを書きなさい
+ */
+SELECT * FROM items WHERE price >= 200 AND price <= 500;
+SELECT * FROM items WHERE price BETWEEN 200 AND 500;
+
+/*
+商品テーブル( items )の、値段(price)が、「200円以上、500円以下」のレコードを、"値段昇順に"表示するSQLを書きなさい
+ */
+SELECT * FROM items WHERE price BETWEEN 200 AND 500 ORDER BY price ;
+
+/*
+商品テーブル( items )の、値段(price)が高い順番に４レコード表示するSQLを書きなさい
+ */
+SELECT * FROM items ORDER BY price DESC LIMIT 4 OFFSET 0;
+SELECT * FROM items ORDER BY price DESC LIMIT 4;
+SELECT * FROM items ORDER BY price DESC LIMIT 0,4; -- MySQL固有
+
+-- 
+SELECT * FROM sales_slips;
+SELECT * FROM sales_slip_details;
+
+SELECT * FROM sales_slips WHERE sales_slip_id = 1 \G
+SELECT * FROM sales_slip_details WHERE sales_slip_id = 1 \G
+
+-- 
+SELECT count(*)
+  FROM items
+;
+SELECT count(item_id)
+  FROM items
+;
+-- これは数値が変わるよ(NULLなレコードがあるから)
+SELECT count(release_at)
+  FROM items
+;
+
+SELECT category_id
+       ,count(*)
+  FROM items
+ GROUP BY category_id
+;
+
+SELECT item_id
+       ,count(*)
+  FROM sales_slip_details
+ GROUP BY item_id
+;
+
+SELECT category_id
+       ,AVG(price)
+       ,count(*)
+  FROM items
+ GROUP BY category_id
+ ORDER BY category_id
+;
+
+SELECT category_id
+       ,AVG(price) as avg
+       ,count(*) as cnt
+  FROM items
+ GROUP BY category_id
+ ORDER BY category_id
+;
+
+SELECT sales_slip_id
+       , count(*)
+  FROM sales_slip_details
+ GROUP BY sales_slip_id
+ ORDER BY sales_slip_id
+;
+
+SELECT category_id
+       ,count(*) as cnt
+  FROM items
+ GROUP BY category_id
+ ORDER BY cnt
+;
+
+/*
+-- これはerrorになる
+SELECT category_id
+       ,count(*) as cnt
+  FROM items
+ WHERE cnt >= 10 -- ここがダメ
+ GROUP BY category_id
+;
+**
+
+SELECT category_id
+       ,count(*)
+  FROM items
+ GROUP BY category_id
+HAVING count(*) >= 10
+;
+
+-- 
+SELECT * FROM items WHERE category_id = 1 \G
+SELECT * FROM items WHERE category_id = 1 OR category_id = 2 \G
+SELECT * FROM items WHERE category_id IN(1, 2) \G
+
+SELECT *
+  FROM items
+ WHERE category_id IN(
+                        SELECT category_id
+                          FROM categories
+                         WHERE category_name = '飲料'
+                     )
+\G
+
+SELECT items.*
+  FROM items
+       LEFT JOIN categories ON categories.category_id = items.category_id
+ WHERE categories.category_name = '飲料'
+\G
+
+-- 
+/*
+item_name   varchar(128) 
+category_id bigint unsigned
+price       int unsigned
+release_at  datetime
+sale_end_at datetime
+*/
+-- INSERT INTO テーブル名(カラム名, カラム名, ...) VALUES(データ, データ, ...);
+
+INSERT INTO items(item_name, category_id, price, release_at, sale_end_at)
+           VALUES('桜のはちみつ', 2        , 1280 , '2020-01-01 00:00:00', NULL);
+
+UPDATE テーブル名 SET 変えたいカラム名=置き換えたいデータ
+                    , 変えたいカラム名=置き換えたいデータ
+                    , 変えたいカラム名=置き換えたいデータ 
+ WHERE カラムの特定
+;
+
+-- 
+SELECT *
+  FROM items
+ WHERE item_id = 47
+\G
+
+UPDATE items
+   SET price=1580
+ WHERE item_id = 47
+;
+
+SELECT *
+  FROM items
+ WHERE item_id = 47
+\G
+
+Create  INSERT
+Read    SELECT
+Update  UPDATE
+Delete  DELETE
+
+-- 行ロック
+BEGIN;
+SELECT *  FROM items WHERE item_id = 47 FOR UPDATE \G
+ROLLBACK; / COMMIT;
