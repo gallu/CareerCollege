@@ -1,0 +1,44 @@
+<!doctype html><!-- form_any.html -->
+<html>
+  <head>
+    <title>いろいろなform</title>
+  </head>
+  <body>
+    <h1>いろいろなform</h1>
+    <form action="./form_any.php" method="post">
+      text: <input type="text" name="text"><br>
+      text readonly: <input type="text" name="text_ro" value="ro" readonly><br>
+      text disabled: <input type="text" name="text_di" value="di" disabled><br>
+
+      <textarea name="tarea"></textarea><br>
+
+      <input type="radio" name="rr" value="r1">r1
+      <input type="radio" name="rr" value="r2">r2
+      <input type="radio" name="rr" value="r3">r3<br>
+
+      <input type="checkbox" name="cc[]" value="c1">c1
+      <input type="checkbox" name="cc[]" value="c2">c2
+      <input type="checkbox" name="cc[]" value="c3">c3<br>
+
+      <select name="ss">
+        <option value="s1">s1
+        <option value="s2">s2
+        <option value="s3">s3
+      </select><br>
+
+      <br>
+      color: <input type="color" name="color"><br>
+      date: <input type="date" name="date" required><br>
+      datetime-local: <input type="datetime-local" name="datetime-local"><br>
+      email: <input type="email" name="email"><br>
+      number: <input type="number" name="number"><br>
+      range: <input type="range" name="range"><br>
+      tel: <input type="tel" name="tel"><br>
+      url: <input type="url" name="url"><br>
+
+      <button>送信する</button>
+    </form>
+
+  </body>
+</html>
+
