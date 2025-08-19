@@ -1,0 +1,416 @@
+ec_sample
+ec_sample_user
+ec_sample_pass
+
+mysql  -u  ec_sample_user  -p  ec_sample
+ec_sample_pass
+
+mysql  -u  ec_sample_user  -p  --skip-binary-as-hex  ec_sample
+ec_sample_pass
+
+-- SQL文
+SELECT 1;
+SELECT 'hoge';
+SELECT 1 + 2;
+-- 
+SELECT NOW();
+select now();
+
+-- 調査
+SELECT database();
+SHOW tables;
+
+-- 
+SELECT  *  FROM  categories;
+SELECT  *  FROM  items;
+SELECT  *  FROM  items \G
+
+-- 
+SELECT  *  FROM  items  WHERE  item_id=2 ;
+SELECT  *  FROM  items  WHERE  item_id=2 \G
+
+SELECT  *  FROM  items  WHERE  item_id=10 ;
+SELECT  *  FROM  items  WHERE  item_name='ジャケット' \G
+SELECT  *  FROM  items  WHERE  item_name='ステーキ' \G
+
+SELECT  *  FROM  items  WHERE  price >= 500 \G
+
+SELECT  *  FROM  items  WHERE  price >= 500 AND price <= 700 \G
+SELECT  *  FROM  items  WHERE  500 <= price AND price <= 700 \G
+
+SELECT  *  FROM  items  WHERE  price BETWEEN 500 AND 700 \G
+
+SELECT  *  FROM  items  WHERE  release_at < '2005-04-01 00:00:00' \G
+
+-- 
+SELECT 1 = 1;
+SELECT 1 = 0;
+SELECT 'hoge' = 'hoge';
+SELECT 'hoge' = 'foo';
+SELECT 1 = '1';
+-- 
+SELECT 'a' = 'a';
+SELECT 'a' = 'b';
+SELECT 'a' = 'A'; -- ???
+
+SELECT * FROM users \G
+SELECT * FROM users WHERE user_id = 2;
+SELECT * FROM users WHERE user_name = '黒田健一';
+SELECT * FROM users WHERE user_name = '黒田憲一';
+
+SELECT * FROM users WHERE user_name LIKE '黒田%'; -- 重いんで注意
+
+SELECT * FROM users WHERE user_name LIKE '秦%';
+SELECT * FROM users WHERE user_name LIKE '秦%' AND email LIKE 'hata_%';
+
+-- 
+SELECT * FROM items;
+SELECT * FROM items  LIMIT  2  OFFSET  0;
+
+SELECT * FROM items ORDER BY item_id;
+SELECT * FROM items ORDER BY price;
+
+SELECT * FROM items ORDER BY item_id DESC;
+SELECT * FROM items ORDER BY price DESC;
+
+SELECT * FROM items ORDER BY item_id DESC LIMIT 2 OFFSET 0;
+SELECT * FROM items ORDER BY item_id DESC LIMIT 2 OFFSET 2;
+
+-- 
+SELECT * FROM items ORDER BY item_id DESC LIMIT 2 OFFSET 0;
+
+SELECT *
+  FROM items
+ ORDER BY item_id DESC
+ LIMIT 2 OFFSET 0
+;
+
+SELECT *
+  FROM items
+ WHERE 
+       price BETWEEN 500 AND 800 -- 営業からいわれた(議事録URL https://xxx)
+ ORDER BY item_id DESC
+ LIMIT 2 OFFSET 0
+;
+
+-- 
+SHOW tables;
+SELECT * FROM categories;
+SELECT * FROM items WHERE category_id = 1;
+SELECT * FROM items WHERE category_id = 2;
+
+SELECT SUM(price) FROM items WHERE category_id = 2;
+SELECT COUNT(price) FROM items WHERE category_id = 2;
+SELECT AVG(price) FROM items WHERE category_id = 2;
+SELECT STDDEV_POP(price) FROM items WHERE category_id = 2;
+
+SELECT * FROM items WHERE category_id = 3 \G
+SELECT * FROM categories WHERE category_id = 3;
+
+SELECT * 
+  FROM items 
+       LEFT  JOIN  categories  ON  items.category_id = categories.category_id
+ WHERE items.category_id = 3
+\G
+
+SELECT items.* 
+       , categories.category_name
+  FROM items 
+       LEFT  JOIN  categories  ON  items.category_id = categories.category_id
+ WHERE items.category_id = 3
+\G
+
+-- 比較するカラム名が同じなら
+SELECT items.* 
+       , categories.category_name
+  FROM items 
+       LEFT  JOIN  categories  USING(category_id)
+ WHERE items.category_id = 3
+\G
+
+-- 一行コメント
+/* 複数行
+コメント */
+
+-- タグ
+SELECT * FROM tags ;
+SELECT * FROM items_tags ;
+
+SELECT *
+  FROM items_tags
+;
+
+SELECT *
+  FROM items_tags
+       LEFT JOIN items ON items.item_id = items_tags.item_id
+\G
+
+SELECT 
+       items.item_id
+       , items.item_name
+       , items.category_id
+       , items.price
+       , tags.tag_name
+  FROM items_tags
+       LEFT JOIN items ON items.item_id = items_tags.item_id
+       LEFT JOIN tags ON tags.tag_id = items_tags.tag_id
+;
+
+SELECT 
+       items.item_id
+       , items.item_name
+       , categories.category_name
+       , items.price
+       , tags.tag_name
+  FROM items_tags
+       LEFT JOIN items ON items.item_id = items_tags.item_id
+       LEFT JOIN tags ON tags.tag_id = items_tags.tag_id
+       LEFT JOIN categories ON items.category_id = categories.category_id
+;
+
+-- セール品のみ対象
+SELECT 
+       items.item_id
+       , items.item_name
+       , categories.category_name
+       , items.price
+       , tags.tag_name
+  FROM items_tags
+       LEFT JOIN items ON items.item_id = items_tags.item_id
+       LEFT JOIN tags ON tags.tag_id = items_tags.tag_id
+       LEFT JOIN categories ON items.category_id = categories.category_id
+ WHERE items_tags.tag_id = 1
+;
+
+-- 値段昇順
+SELECT 
+       items.item_id
+       , items.item_name
+       , categories.category_name
+       , items.price
+       , tags.tag_name
+  FROM items_tags
+       LEFT JOIN items ON items.item_id = items_tags.item_id
+       LEFT JOIN tags ON tags.tag_id = items_tags.tag_id
+       LEFT JOIN categories ON items.category_id = categories.category_id
+ WHERE items_tags.tag_id = 1
+ ORDER BY price
+;
+
+-- 売上伝票
+SELECT * FROM sales_slips \G
+
+SELECT *
+  FROM sales_slips
+ WHERE total >= 2500
+\G
+
+SELECT * FROM sales_slip_details;
+
+SELECT *
+  FROM sales_slip_details
+ WHERE sales_slip_id = 2
+\G
+
+-- 
+SELECT count(*) FROM items;
+
+SELECT count(*) FROM items WHERE category_id = 1;
+
+SELECT category_id
+  FROM items
+ GROUP BY category_id
+;
+
+SELECT category_id, count(*)
+  FROM items
+ GROUP BY category_id
+;
+
+SELECT category_id
+       , AVG(price)
+       , count(*)
+  FROM items
+ GROUP BY category_id
+;
+
+SELECT category_id
+       , AVG(price) as agv
+       , count(*) as cnt
+  FROM items
+ GROUP BY category_id
+;
+
+SELECT item_name, count(*)
+  FROM items
+ GROUP BY item_name
+;
+
+/*
+-- これはerrorになる
+SELECT item_name, count(*) as count
+  FROM items
+ WHERE count > 1
+ GROUP BY item_name
+;
+*/
+SELECT item_name, count(*) as count
+  FROM items
+ GROUP BY item_name
+ HAVING count(*) > 1
+;
+
+-- 
+SELECT *
+  FROM items
+ WHERE category_id = 1 OR category_id = 2
+\G
+
+SELECT *
+  FROM items
+ WHERE category_id IN (1, 2)
+\G
+
+SELECT *
+  FROM categories
+ WHERE category_name='飲料'
+;
+
+SELECT *
+  FROM items
+ WHERE category_id IN (
+            SELECT category_id
+              FROM categories
+             WHERE category_name='飲料'
+       )
+;
+
+SELECT *
+  FROM sales_slip_details
+ WHERE item_id IN (
+            SELECT item_id
+              FROM items
+             WHERE category_id IN (
+                        SELECT category_id
+                          FROM categories
+                         WHERE category_name='飲料'
+                   )
+       )
+;
+
+-- 
+SHOW tables;
+SELECT * FROM categories;
+SHOW CREATE TABLE items \G
+SHOW CREATE TABLE users \G
+
+/*
+CREATE TABLE `users` (
+  `user_name` varchar(128) NOT NULL COMMENT 'ユーザ名',
+  `email` varbinary(254) NOT NULL COMMENT 'ユーザemail',
+*/
+
+INSERT INTO テーブル名(カラム名, カラム名, ...) VALUES(値, 値, ....);
+INSERT INTO users(user_name, email) VALUES('おいちゃん', 'oichan@example.com');
+SELECT * FROM users;
+
+-- MySQL固有
+INSERT INTO users SET user_name='おいちゃん2', email='oichan2@example.com';
+
+-- 
+Create  INSERT
+Read    SELECT
+Update  UPDATE
+Delete  DELETE
+
+-- 
+UPDATE users SET user_name='名無し2' WHERE user_id=22;
+
+-- 
+DELETE FROM users WHERE user_id=22;
+
+-- 
+UPSERT
+・対象が「あったらUPDATE、なかったらINSERT」
+
+-- 
+BEGIN;
+    -- 実行するSQL
+    SELECT * FROM 通帳 WHERE Aさんの通帳 FOR UPDATE;
+    (コード内で残高check)
+    UPDATE 通帳 SET 残高=残高-10000 WHERE Aさんの通帳;
+    UPDATE 通帳 SET 残高=残高+10000 WHERE Bさんの通帳;
+COMMIT; / ROLLBACK;
+
+-- 
+BEGIN;
+UPDATE users SET user_name='名無し2';
+SELECT * FROM users;
+
+ROLLBACK;
+
+-- 
+CAS(コンペア・アンド・スワップ
+
+-- 従来
+BEGIN;
+    SELECT * FROM 在庫 WHERE 商品名='Switch2';
+    (在庫数確認)
+    UPDATE 在庫 SET 在庫=在庫-1 WHERE 商品名='Switch2';
+COMMIT; / ROLLBACK;
+
+-- CAS
+do {
+    在庫数 = SELECT * FROM 在庫 WHERE 商品名='Switch2';
+    UPDATE 在庫 SET 在庫=在庫-1 WHERE 商品名='Switch2' AND 在庫=在庫数;
+    (影響行が0なら在庫確保できなかった)
+} while(一定回数);
+
+-------------------------------------------- 
+数値
+    整数(SIGNED / UNSIGNED)
+        TINYINT     1   (-128~128 / 0~255)
+        SMALLINT    2   (32767 / 65535)
+        INT         4   (2147483647 / 4294967295)
+        BIGINT      8   (9223372036854775807 / 18446744073709551615)
+    小数点数
+        浮動小数点数
+            FLOAT   4
+            DOUBLE  8
+        固定小数点数
+            DECIMAL
+            NUMERIC
+文字
+    CHAR(1)  あ
+    VARCHAR
+    TEXT
+        TINYTEXT
+        TEXT
+        LONGTEXT
+    BINARY(1)   あx
+    VARBINARY
+    BLOB
+        TINYBLOB
+        BLOB
+        LONGBLOB
+日付
+    DATE
+    TIME
+    TIMESTAMP   '1970-01-01 00:00:01' UTC から '2038-01-19 03:14:07' UTC の範囲
+    DATETIME    '1000-01-01 00:00:00.000000'から'9999-12-31 23:59:59.999999'
+
+-------------------------------------------- 
+主キー(PRIMARY KEY) PK
+    (候補キー)
+    自然キー
+    人工キー(サロゲートキー)
+        AUTO_INCREMENT
+        UUID
+
+FOREIGN KEY(外部キー制約) FK
+
+UNIQUE
+
+INDEX
+
+NOT NULL(NULL)

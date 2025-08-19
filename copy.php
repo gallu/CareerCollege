@@ -1,7 +1,7 @@
 <?php
 
 //
-$year = 2024;
+$year = 2025;
 
 //
 $from = basename(__DIR__ . '/../wwwroot');
@@ -9,15 +9,16 @@ $to = __DIR__;
 
 //
 $param = [
-    2024 => [
+    2025 => [
         'GameServer' => [
             'Sat12' => 'S12',
             'Sat34' => 'S34',
         ],
         'Php' => [
-            'PeriodTue34' => 'T34',
-            'PeriodTue56' => 'T56',
-            'PeriodSat56' => 'S56',
+            'EarlyPeriodTue34' => 'T34',
+            'EarlyPeriodTue56' => 'T56',
+            'EarlyPeriodSat56' => 'S56',
+	    // Latter
         ],
     ],
 ];
