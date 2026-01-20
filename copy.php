@@ -1,5 +1,11 @@
 <?php
 
+/*
+以下、コマンド見直し。これベースにするかねぇ特に後期
+find ./ -maxdepth 1 -type f -newermt "2025-10-01" -exec cp -pt ~/CareerCollege/GameServer/2025/Sat34/ {} +
+*/
+
+
 //
 $year = 2025;
 
