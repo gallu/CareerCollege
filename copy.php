@@ -7,7 +7,7 @@ find ./ -maxdepth 1 -type f -newermt "2025-10-01" -exec cp -pt ~/CareerCollege/G
 
 
 //
-$year = 2025;
+$year = 2026;
 
 //
 $from = basename(__DIR__ . '/../wwwroot');
@@ -15,15 +15,16 @@ $to = __DIR__;
 
 //
 $param = [
-    2025 => [
+    2026 => [
         'GameServer' => [
             'Sat12' => 'S12',
             'Sat34' => 'S34',
         ],
         'Php' => [
+            'EarlyPeriodTue12' => 'T12',
             'EarlyPeriodTue34' => 'T34',
             'EarlyPeriodTue56' => 'T56',
-            'EarlyPeriodSat56' => 'S56',
+            //'EarlyPeriodSat56' => 'S56',
 	    // Latter
         ],
     ],
