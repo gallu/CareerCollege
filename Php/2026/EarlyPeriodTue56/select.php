@@ -7,7 +7,7 @@ $dbh = Dbh::getDbh();
 // var_dump($dbh);
 
 // 「外部から入ってきた情報」と仮定
-$max_price = "100";
+$max_price = "980";
 
 // 「死んでも」書いてはいけない！！！！！！！！！
 // $sql = "SELECT * FROM items WHERE price <= {$max_price};";

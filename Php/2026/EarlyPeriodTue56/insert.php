@@ -1,18 +1,31 @@
+<?php // insert.php
+declare(strict_types=1);
 
-mysql  -u  ec_sample_user  -p  ec_sample
-ec_sample_pass
+// DBハンドルの取得
+require_once __DIR__. '/dbh.php';
+$dbh = Dbh::getDbh();
+// var_dump($dbh);
 
-CREATE TABLE `items` (
-  `item_id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '商品ID',
-  `item_name` varchar(128) NOT NULL COMMENT '商品名',
-  `category_id` bigint unsigned NOT NULL COMMENT 'カテゴリID',
-  `price` int unsigned NOT NULL COMMENT '価格',
-  `release_at` datetime DEFAULT NULL COMMENT '発売開始日(NULLなら発売日未定)',
-  `sale_end_at` datetime DEFAULT NULL COMMENT '発売終了日(NULLなら発売終了日未定)',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '作成日',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修正日',
-  PRIMARY KEY (`item_id`),
-  UNIQUE KEY `item_id` (`item_id`),
-  KEY `fk_items_category_id` (`category_id`),
-  CONSTRAINT `fk_items_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='1レコードが1商品を意味するテーブル'
+// 
+$item_name = 'ハイソ紅茶';
+$category_id = 2;
+$price = 980;
+$release_at = '2026-04-01 00:00:00';
+$sale_end_at = '2027-03-31 23:59:59';
+
+// プリペアド ステートメント(準備された文)を用意する
+$sql = 'INSERT INTO items(item_name, category_id, price, release_at, sale_end_at)
+  VALUES(:item_name, :category_id, :price, :release_at, :sale_end_at);';
+$pre = $dbh->prepare($sql);
+
+// プレースホルダに値をバインドする
+$pre->bindValue(':item_name', $item_name, PDO::PARAM_STR);
+$pre->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+$pre->bindValue(':price', $price, PDO::PARAM_INT);
+$pre->bindValue(':release_at', $release_at, PDO::PARAM_STR);
+$pre->bindValue(':sale_end_at', $sale_end_at, PDO::PARAM_STR);
+
+// 実行する
+$r = $pre->execute();
+var_dump($r);
+
