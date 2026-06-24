@@ -1,15 +1,17 @@
 <?php  // any_dice.php
 
-// XXX 来週、処理を共通化する
-
-function d6() {
-	$r = random_int(1, 6);
+// 処理を共通化する
+function _dice($max) {
+	$r = random_int(1, $max);
 	return $r;
 }
 
+function d6() {
+	return _dice(6);
+}
+
 function d8() {
-	$r = random_int(1, 8);
-	return $r;
+	return _dice(8);
 }
 
 $r = d6();
